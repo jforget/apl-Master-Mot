@@ -70,11 +70,10 @@
 
 </li>
 ") (next-line -2) (end-of-line))
-(defun html-pre-tt       () (interactive) (insert "
-<pre type='tt'>
 
-</pre>
-") (next-line -2) (end-of-line))
+(defun html-tt () (interactive)
+  (insert "<tt></tt>")
+  (backward-char 5))
 
 (defun html-langage (lang) (interactive "slangage? ")
   (insert "<i lang='" lang "'></i>")
@@ -92,7 +91,7 @@
   (define-key global-map "\C-c\C-c<"  'html-laquo)
   (define-key global-map "\C-cl"      'html-latex)
   (define-key global-map "\C-co"      'html-oelig)
-  (define-key global-map "\C-cp"      'html-pre-tt)
+  (define-key global-map "\C-ct"      'html-tt)
   (define-key global-map "\C-ci"      'html-langage))
   (global-set-key '[f5] 'other-window)
 (add-shortcuts)
