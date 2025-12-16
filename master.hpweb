@@ -117,6 +117,14 @@ master.apl: apl
     partiels à 1  caractère, filtre cette liste, puis génère  la liste des
     codes partiels à 2 caractères, filtre cette nouvelle liste et ainsi de
     suite.
+
+    Pour écrire  les programmes, j'ai  utilisé la variante d'APL  que j'ai
+    apprise  dans les  années 1980,  avant l'apparition  des fonctions  <i
+    lang='en'>disclose</i>,     <i     lang='en'>enclose</i>     et     <i
+    lang='en'>each</i>  (<tt>⊃⊂¨</tt>). Une  chaîne de  caractères est  en
+    fait un  vecteur de caractères, un  vecteur de chaînes est  en fait un
+    tableau de caractères (ce qui implique que toutes les chaînes aient la
+    même longueur).
 - en: |
     All  codes from  the problem  are  valid French  words. Likewise,  the
     solution is  a French word.  In some rare  cases, the problem  has two
@@ -132,3 +140,41 @@ master.apl: apl
     possible  codes. Nearly  extensive,  because it  generates all  1-char
     partial  codes, filters  the list,  builds all  2-char partial  codes,
     filters again and so on.
+
+    To write these programs,  I have used the old variant  of APL, which I
+    learnt in the early 1980's, before the advent of "disclose", "enclose"
+    and "each" (<tt>⊃⊂¨</tt>). Thus, a string is a vector of chars, and an
+    array of strings  is a rectangular table of chars  (which implies that
+    all strings must have the same length).
+- section: 0
+  fr: Les programmes
+  en: The programs
+- section: master∆slurp
+  master.apl: 2
+  level: 3
+  fr: Chargement du fichier
+  en: Loading a file
+- fr: |
+    Cette  fonction  sert  à  charger   un  fichier  dans  un  vecteur  de
+    caractères.  Elle  n'est  pas   portable.  La  version  ci-dessous  ne
+    fonctionne  que  sur GNU-APL.  Son  nom  est  inspiré de  la  fonction
+    (standard) Raku qui effectue la même tâche.
+
+    La fonction reçoit  en paramètre une chaîne de  caractères (un vecteur
+    de caractères) contenant le chemin du  fichier texte à lire. Le chemin
+    peut  être relatif  ou absolu,  peu  importe. La  fonction renvoie  un
+    vecteur de caractères représentant le contenu du fichier texte.
+- en: |
+    This function aims to extract the content of a file and load it into a
+    char vector. This  function is not portable.  The implementation below
+    works  only with  GNU-APL. Its  name  comes from  the (standard)  Raku
+    function with the same purpose.
+
+    The  function receives  one parameter,  a string  (char vector)  which
+    contains the path to the text file. This can be a relative or absolute
+    path, it does not matter. The  function result is another char vector,
+    holding the whole content of the text file.
+- code: |
+    ∇ r ← master∆slurp path
+    r ← ⎕FIO[26] path
+    ∇

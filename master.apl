@@ -1,3 +1,6 @@
+∇ r ← master∆slurp path
+r ← ⎕FIO[26] path
+∇
 ∇ master∆license
 'APL program to solve a Master Mot quizz'
 ''

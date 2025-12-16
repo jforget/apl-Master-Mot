@@ -108,4 +108,33 @@ partiels à 1  caractère, filtre cette liste, puis génère  la liste des
 codes partiels à 2 caractères, filtre cette nouvelle liste et ainsi de
 suite.
 
+Pour écrire  les programmes, j'ai  utilisé la variante d'APL  que j'ai
+apprise  dans les  années 1980,  avant l'apparition  des fonctions  <i
+lang='en'>disclose</i>,     <i     lang='en'>enclose</i>     et     <i
+lang='en'>each</i>  (<tt>⊃⊂¨</tt>). Une  chaîne de  caractères est  en
+fait un  vecteur de caractères, un  vecteur de chaînes est  en fait un
+tableau de caractères (ce qui implique que toutes les chaînes aient la
+même longueur).
+
+
+## Les programmes
+
+### `master∆slurp` - Chargement du fichier
+
+Cette  fonction  sert  à  charger   un  fichier  dans  un  vecteur  de
+caractères.  Elle  n'est  pas   portable.  La  version  ci-dessous  ne
+fonctionne  que  sur GNU-APL.  Son  nom  est  inspiré de  la  fonction
+(standard) Raku qui effectue la même tâche.
+
+La fonction reçoit  en paramètre une chaîne de  caractères (un vecteur
+de caractères) contenant le chemin du  fichier texte à lire. Le chemin
+peut  être relatif  ou absolu,  peu  importe. La  fonction renvoie  un
+vecteur de caractères représentant le contenu du fichier texte.
+
+
+```
+∇ r ← master∆slurp path
+r ← ⎕FIO[26] path
+∇
+```
 

@@ -98,4 +98,31 @@ possible  codes. Nearly  extensive,  because it  generates all  1-char
 partial  codes, filters  the list,  builds all  2-char partial  codes,
 filters again and so on.
 
+To write these programs,  I have used the old variant  of APL, which I
+learnt in the early 1980's, before the advent of "disclose", "enclose"
+and "each" (<tt>⊃⊂¨</tt>). Thus, a string is a vector of chars, and an
+array of strings  is a rectangular table of chars  (which implies that
+all strings must have the same length).
+
+
+## The programs
+
+### `master∆slurp` - Loading a file
+
+This function aims to extract the content of a file and load it into a
+char vector. This  function is not portable.  The implementation below
+works  only with  GNU-APL. Its  name  comes from  the (standard)  Raku
+function with the same purpose.
+
+The  function receives  one parameter,  a string  (char vector)  which
+contains the path to the text file. This can be a relative or absolute
+path, it does not matter. The  function result is another char vector,
+holding the whole content of the text file.
+
+
+```
+∇ r ← master∆slurp path
+r ← ⎕FIO[26] path
+∇
+```
 
