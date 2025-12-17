@@ -180,3 +180,167 @@ r ← ⎕FIO[26] path
 ∇
 ```
 
+### Chargement du problème
+
+Soit un fichier contenant le texte
+
+
+```
+aaaa 1
+bbbb 0
+```
+
+De manière interne, c'est une suite linéaire de caractères
+
+
+```
+aaaaa(SP)1(LF)bbbbb(SP)0(LF)
+```
+
+Le programme  commence par générer un  tableau «&nbsp;rotatif&nbsp;» à
+partir de cette suite de caractères.
+
+
+```
+aaaaa(SP)1(LF)bbbbb(SP)0(LF)
+aaaa(SP)1(LF)bbbbb(SP)0(LF)a
+aaa(SP)1(LF)bbbbb(SP)0(LF)aa
+aa(SP)1(LF)bbbbb(SP)0(LF)aaa
+a(SP)1(LF)bbbbb(SP)0(LF)aaaa
+(SP)1(LF)bbbbb(SP)0(LF)aaaaa
+1(LF)bbbbb(SP)0(LF)aaaaa(SP)
+(LF)bbbbb(SP)0(LF)aaaaa(SP)1
+bbbbb(SP)0(LF)aaaaa(SP)1(LF)
+bbbb(SP)0(LF)aaaaa(SP)1(LF)b
+bbb(SP)0(LF)aaaaa(SP)1(LF)bb
+bb(SP)0(LF)aaaaa(SP)1(LF)bbb
+b(SP)0(LF)aaaaa(SP)1(LF)bbbb
+(SP)0(LF)aaaaa(SP)1(LF)bbbbb
+0(LF)aaaaa(SP)1(LF)bbbbb(SP)
+(LF)aaaaa(SP)1(LF)bbbbb(SP)0
+```
+
+En fait,  de la façon  dont APL fonctionne, en  utilisant <tt>⍳n</tt>
+pour la  rotation avec une origine  des indices <tt>⎕IO</tt> à  1, le
+tableau sera plutôt
+
+
+```
+aaaa(SP)1(LF)bbbbb(SP)0(LF)a
+...
+(LF)aaaaa(SP)1(LF)bbbbb(SP)0
+aaaaa(SP)1(LF)bbbbb(SP)0(LF)
+```
+
+avec la séquence origine à la fin et non pas au début du tableau.
+
+Puis le programme tronque ces lignes à 9 caractères.
+
+
+```
+aaaa(SP)1(LF)bb
+aaa(SP)1(LF)bbb
+aa(SP)1(LF)bbbb
+a(SP)1(LF)bbbbb
+(SP)1(LF)bbbbb(SP)
+1(LF)bbbbb(SP)0
+(LF)bbbbb(SP)0(LF)
+bbbbb(SP)0(LF)a
+bbbb(SP)0(LF)aa
+bbb(SP)0(LF)aaa
+bb(SP)0(LF)aaaa
+b(SP)0(LF)aaaaa
+(SP)0(LF)aaaaa(SP)
+0(LF)aaaaa(SP)1
+(LF)aaaaa(SP)1(LF)
+aaaaa(SP)1(LF)b
+```
+
+Ensuite, le programme filtre cette liste pour conserver uniquement les
+chaînes commençant par un LF et se terminant de même.
+
+
+```
+(LF)bbbbb(SP)0(LF)
+(LF)aaaaa(SP)1(LF)
+```
+
+Enfin, le programme extrait le tableau des codes de 5 caractères et le
+tableau des notes.
+
+
+```
+bbbbb
+aaaaa
+---
+0 1
+```
+
+Les propositions ne  sont pas dans l'ordre initial, mais  ce n'est pas
+grave. L'essentiel est que cet ordre soit conservé dans le tableau des
+notes.
+
+On peut remarquer que si le  fichier comporte une seule ligne, elle ne
+sera pas  extraite, car  même avec  la rotation,  elle ne  sera jamais
+simultanément précédée  et suivie  par un  (LF). Mais  comment peut-on
+avoir un problème avec un seul coup ?
+
+
+#### `master∆nl` - Caractère NL (ou LF) et manque de portabilité
+
+Je ne  sais pas comment  spécifier un caractère NL  ou LF dans  le cas
+général. J'admets  que je  n'ai pas trop  regardé. En  revanche, c'est
+facile avec  GNU-APL, il  suffit d'utiliser  un littéral  chaîne entre
+double-quotes.  Mais  ce n'est  pas  portable.  J'isole ce  manque  de
+portabilité dans une ligne de programme unique.
+
+
+```
+master∆nl ← "\n"
+```
+
+#### `master∆extract` - Extraction des données du problème
+
+Le programme reçoit le chemin d'accès  du fichier et alimente les deux
+variables  globales <tt>prop</tt>  et  <tt>notes</tt>.  Il ne  renvoie
+aucune valeur.
+
+Récupération du contenu du fichier
+
+
+```
+∇ master∆extract path; v; n; t; sel
+v ← master∆slurp path
+```
+
+Génération du tableau «&nbsp;rotatif&nbsp;» et troncation à 9 colonnes
+
+
+```
+n ← ⍴ v
+t ← ((⍳n) ⌽ (2⍴n) ⍴ v)[;⍳9]
+```
+
+Filtrons la liste pour conserver les  vecteurs avec un LF en positions
+1 et 9 et un espace en position 7.
+
+
+```
+sel ← (master∆nl = t[;1]) ∧ (' ' = t[;7]) ∧ master∆nl = t[;9]
+t ← t[sel/⍳n;]
+```
+
+Extrayons les  proposition et les  notes. Pour extraire les  notes, le
+programme prend le chiffre et l'espace qui le précède. Si le programme
+ne  prend pas  l'espace, cela  donne  une chaîne  avec uniquement  des
+chiffres,  donc  l'opérateur  dequote  génère  un  nombre  à  <i>n</i>
+chiffres. L'opérateur dequote est nécessaire  pour avoir un vecteur de
+nombres au lieu d'un vecteur de caractères.
+
+
+```
+prop  ← t[;1 + ⍳5]
+notes ← ⍎,t[;7 8]
+∇
+```
+

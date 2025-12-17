@@ -166,3 +166,168 @@ r ← ⎕FIO[26] path
 ∇
 ```
 
+### Loading the problem
+
+Let us use a file containing this text
+
+
+```
+aaaa 1
+bbbb 0
+```
+
+Its inner structure is a linear sequence of characters
+
+
+```
+aaaaa(SP)1(LF)bbbbb(SP)0(LF)
+```
+
+The  program  begins with  generating  a  "rotating" array  from  this
+sequence
+
+
+```
+aaaaa(SP)1(LF)bbbbb(SP)0(LF)
+aaaa(SP)1(LF)bbbbb(SP)0(LF)a
+aaa(SP)1(LF)bbbbb(SP)0(LF)aa
+aa(SP)1(LF)bbbbb(SP)0(LF)aaa
+a(SP)1(LF)bbbbb(SP)0(LF)aaaa
+(SP)1(LF)bbbbb(SP)0(LF)aaaaa
+1(LF)bbbbb(SP)0(LF)aaaaa(SP)
+(LF)bbbbb(SP)0(LF)aaaaa(SP)1
+bbbbb(SP)0(LF)aaaaa(SP)1(LF)
+bbbb(SP)0(LF)aaaaa(SP)1(LF)b
+bbb(SP)0(LF)aaaaa(SP)1(LF)bb
+bb(SP)0(LF)aaaaa(SP)1(LF)bbb
+b(SP)0(LF)aaaaa(SP)1(LF)bbbb
+(SP)0(LF)aaaaa(SP)1(LF)bbbbb
+0(LF)aaaaa(SP)1(LF)bbbbb(SP)
+(LF)aaaaa(SP)1(LF)bbbbb(SP)0
+```
+
+Actually,  if using  <tt>⍳n</tt> to  roll  the array,  with the  index
+origin <tt>⎕IO</tt> equal to 1, the rolling array will be rather
+
+
+```
+aaaa(SP)1(LF)bbbbb(SP)0(LF)a
+...
+(LF)aaaaa(SP)1(LF)bbbbb(SP)0
+aaaaa(SP)1(LF)bbbbb(SP)0(LF)
+```
+
+with the  original sequence  at the end  of the array  and not  at its
+beginning.
+
+Then the program truncates these sequences to 9 chars.
+
+
+```
+aaaa(SP)1(LF)bb
+aaa(SP)1(LF)bbb
+aa(SP)1(LF)bbbb
+a(SP)1(LF)bbbbb
+(SP)1(LF)bbbbb(SP)
+1(LF)bbbbb(SP)0
+(LF)bbbbb(SP)0(LF)
+bbbbb(SP)0(LF)a
+bbbb(SP)0(LF)aa
+bbb(SP)0(LF)aaa
+bb(SP)0(LF)aaaa
+b(SP)0(LF)aaaaa
+(SP)0(LF)aaaaa(SP)
+0(LF)aaaaa(SP)1
+(LF)aaaaa(SP)1(LF)
+aaaaa(SP)1(LF)b
+```
+
+Then, the  program filters this  list to keep only  sequences starting
+with a (LF) and ending with another (LF).
+
+
+```
+(LF)bbbbb(SP)0(LF)
+(LF)aaaaa(SP)1(LF)
+```
+
+Lastly, the program extract the array of 5-char codes and the array of
+marks.
+
+
+```
+bbbbb
+aaaaa
+---
+0 1
+```
+
+The  propositions are  not  in the  original order,  but  it does  not
+matter. What  matters is that this  order must be consistent  with the
+order of the array of marks.
+
+You may  have noticed that  if the file  contains a single  line, this
+line will  not be extracted,  because it will never  be simultaneously
+preceded and followed by a (LF).  But seriously, can you have a Master
+Mot problem consisting of a single line?
+
+
+#### `master∆nl` - Unportable NL (or LF) char
+
+I do  not know how  I can enter  a NL (or LF)  char in a  portable APL
+program. I admit that I have not  searched for very long. On the other
+hand, using  a NL is  easy when  using GNU-APL, I  just have to  use a
+double-quoted string litteral. I isolate this lack of portability in a
+unique program line.
+
+
+```
+master∆nl ← "\n"
+```
+
+#### `master∆extract` - Extracting the problem data
+
+The program  receives the pathname of  the problem file and  feeds two
+global variables <tt>prop</tt> and  <tt>notes</tt>. There is no return
+value.
+
+Loding the content of the file.
+
+
+```
+∇ master∆extract path; v; n; t; sel
+v ← master∆slurp path
+```
+
+Generating the rolling array and truncating it to 9 columns
+
+
+```
+n ← ⍴ v
+t ← ((⍳n) ⌽ (2⍴n) ⍴ v)[;⍳9]
+```
+
+The program filters the list to  select line vectors with LF in colums
+1 and 9 and SP in column 7.
+
+
+```
+sel ← (master∆nl = t[;1]) ∧ (' ' = t[;7]) ∧ master∆nl = t[;9]
+t ← t[sel/⍳n;]
+```
+
+The program extract the propositions  and their notes. When extracting
+the notes, the program takes also  the preceding space. If the program
+does not take this space, the result  would be a string of digits with
+no separator and  the dequote operator would generate  a single number
+with  <i>n</i> digits.  If we  do not  use the  dequote operator,  the
+<tt>notes</tt> variable would contain a vector of chars, while we need
+a vector of numbers.
+
+
+```
+prop  ← t[;1 + ⍳5]
+notes ← ⍎,t[;7 8]
+∇
+```
+

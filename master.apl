@@ -31,3 +31,13 @@
 ∇ r ← master∆slurp path
 r ← ⎕FIO[26] path
 ∇
+master∆nl ← "\n"
+∇ master∆extract path; v; n; t; sel
+v ← master∆slurp path
+n ← ⍴ v
+t ← ((⍳n) ⌽ (2⍴n) ⍴ v)[;⍳9]
+sel ← (master∆nl = t[;1]) ∧ (' ' = t[;7]) ∧ master∆nl = t[;9]
+t ← t[sel/⍳n;]
+prop  ← t[;1 + ⍳5]
+notes ← ⍎,t[;7 8]
+∇
