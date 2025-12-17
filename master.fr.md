@@ -108,6 +108,43 @@ partiels à 1  caractère, filtre cette liste, puis génère  la liste des
 codes partiels à 2 caractères, filtre cette nouvelle liste et ainsi de
 suite.
 
+
+## Utilisation
+
+Pour résoudre  un problème, il  faut commencer par écrire  ce problème
+dans  un  fichier  texte.  Chaque  ligne  de  texte  commence  par  la
+proposition, 5 caractères,  puis un espace (pas plus), puis  la note à
+un  chiffre.  Rien  de  plus.  Le  séparateur  de  ligne  est  le  LF,
+<tt>U+000A</tt>, comme le standard UNIX.
+
+Les lignes qui ne  se conforment pas au modèle 5 +  espace + note sont
+ignorées. Cela permet  d'ajouter des lignes techniques  comme dans cet
+exemple.
+
+
+```
+-*- encoding: utf-8; indent-tabs-mode: nil -*-
+
+paume 2
+choux 1
+pends 1
+foret 1
+palme 1
+fendu 1
+phase 1
+pente 1
+curry 1
+alors 0
+```
+
+Vous pouvez  utiliser des  lettres majuscules dans  un fichier  et des
+lettres minuscules dans un autre fichier.  Mais ne les mélangez pas au
+sein  d'un  même  fichier.  Quant  aux  écrans,  trémas  et  cédilles,
+oubliez-les (cf <tt>foret</tt> dans l'exemple ci-dessus).
+
+
+## Les programmes
+
 Pour écrire  les programmes, j'ai  utilisé la variante d'APL  que j'ai
 apprise  dans les  années 1980,  avant l'apparition  des fonctions  <i
 lang='en'>disclose</i>,     <i     lang='en'>enclose</i>     et     <i
@@ -116,8 +153,13 @@ fait un  vecteur de caractères, un  vecteur de chaînes est  en fait un
 tableau de caractères (ce qui implique que toutes les chaînes aient la
 même longueur).
 
+Également, j'utilise  la
+<a href='https://www.gnu.org/software/apl/Library-Guidelines.html'>codification</a>
+qui m'a été  conseillée lorsque j'ai écrit mon
+<a href='https://github.com/jforget/apl-calendar-french'>programme de conversion de calendrier républicain</a>
+même si je n'ai pas l'intention de publier mon programme de Master Mot sur
+<a href='https://www.gnu.org/software/apl/Bits_and_Pieces/'>APL bits and pieces</a>.
 
-## Les programmes
 
 ### `master∆slurp` - Chargement du fichier
 

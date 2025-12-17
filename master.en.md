@@ -98,14 +98,54 @@ possible  codes. Nearly  extensive,  because it  generates all  1-char
 partial  codes, filters  the list,  builds all  2-char partial  codes,
 filters again and so on.
 
+
+## Usage
+
+To solve a problem,  the first step is typing it in  a text file. Each
+line begins  with the 5-char proposition.  It is followed by  a single
+space (no more) and ends with the 1-digit mark. Nothing more. The line
+separator is LF, <tt>U+000A</tt>, as with any standard Unix text file.
+
+The lines that do not match the pattern 5 + space + digit are ignored.
+This allows you to add technical lines as below.
+
+
+```
+-*- encoding: utf-8; indent-tabs-mode: nil -*-
+
+paume 2
+choux 1
+pends 1
+foret 1
+palme 1
+fendu 1
+phase 1
+pente 1
+curry 1
+alors 0
+```
+
+You may use lower-caps letters in  a first file and upper-caps letters
+in  another file,  but  do not  mix  them  in the  same  file. As  for
+diacritics, do not use them  (see <tt>foret</tt> in the example above,
+which corresponds to the French word "forêt").
+
+
+## The programs
+
 To write these programs,  I have used the old variant  of APL, which I
 learnt in the early 1980's, before the advent of "disclose", "enclose"
 and "each" (<tt>⊃⊂¨</tt>). Thus, a string is a vector of chars, and an
 array of strings  is a rectangular table of chars  (which implies that
 all strings must have the same length).
 
+Likewise, I use the
+<a href='https://www.gnu.org/software/apl/Library-Guidelines.html'>codification</a>
+that I was advised to use when I wrote my
+<a href='https://github.com/jforget/apl-calendar-french'>French Revolutionary calendar program</a>
+even if I have no intention to publish my Master Mot program on
+<a href='https://www.gnu.org/software/apl/Bits_and_Pieces/'>APL bits and pieces</a>.
 
-## The programs
 
 ### `master∆slurp` - Loading a file
 

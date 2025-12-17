@@ -1,6 +1,3 @@
-∇ r ← master∆slurp path
-r ← ⎕FIO[26] path
-∇
 ∇ master∆license
 'APL program to solve a Master Mot quizz'
 ''
@@ -30,4 +27,7 @@ r ← ⎕FIO[26] path
 ' You should have received a copy of the GNU General Public License'
 ' along with this program; if not, write to the Free Software Foundation,'
 ' Inc., <http://www.fsf.org/>.'
+∇
+∇ r ← master∆slurp path
+r ← ⎕FIO[26] path
 ∇
