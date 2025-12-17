@@ -480,3 +480,100 @@ r ← poss[ip;] , letters[il]
 ∇
 ```
 
+### Calcul de la note d'une proposition
+
+Si les deux arguments sont des  chaînes à 5 caractères, aucun problème
+pour  calculer la  note. On  compare  les deux  chaînes caractère  par
+caractère, on obtient un vecteur de 5 valeurs booléennes et on fait la
+somme.
+
+Si les deux arguments sont des  chaînes, mais que l'une d'elle a moins
+de 5 caractères, il  faut tronquer la plus longue à  la longueur de la
+plus  courte, puis  faire la  comparaison caractère  par caractère  et
+sommer le résultat.
+
+Si les deux arguments sont des listes de chaînes (donc des tableaux de
+caractères), le  calcul de  la note  se fait par  un genre  de produit
+externe. Si par exemple, on a 8 codes possibles et 10 propositions, le
+résultat  doit être  un  tableau d'entiers  avec  la dimension  <tt>(8
+10)</tt>.
+
+Ainsi, si la variable <tt>prop</tt> vaut
+
+
+```
+pouce
+index
+coude
+```
+
+et si la variable <tt>poss</tt> contient
+
+
+```
+col
+cou
+pou
+```
+
+alors le résultat de <tt>poss master∆note prop</tt> donnera
+
+
+```
+.     pouce index coude
+col :   1     0     2
+cou :   2     0     3
+pou :   3     0     2
+```
+
+Conceptuellement, l'utilisation de <tt>master∆note</tt> sur un vecteur
+de  codes possibles  et un  vecteur de  propositions donne  un tableau
+<tt>poss ∘.noter  prop</tt> avec  un produit externe  (<i>jot</i>). En
+réalité, le tableau  des codes possibles est, dans ce  cas, un tableau
+<tt>⍴ = 3  3</tt> de caractères et le tableau  des propositions, après
+troncation, est lui  aussi un tableau <tt>⍴ = 3  3</tt> de caractères.
+Le calcul se fait par un produit interne <tt>+.=</tt>
+
+
+```
+.     p   i   c
+.     o   n   o
+.     u   d   u
+.
+col   1   0   2
+cou   2   0   3
+pou   3   0   2
+```
+
+#### `master∆note`
+
+Calculer la dimension pour tronquer les deux paramètres.
+
+
+```
+∇ r ← poss master∆note prop; d1; d2; l1; l2; lmin; posst; propt
+l1   ← ¯1 ↑ d1 ← ⍴ poss
+l2   ← ¯1 ↑ d2 ← ⍴ prop
+lmin ← l1 ⌊ l2
+d1   ← (¯1 ↓ d1), lmin
+d2   ← (¯1 ↓ d2), lmin
+```
+
+Tronquer les codes possibles et les propositions à la longueur la plus
+petite. On  en profite pour  transposer le second paramètre,  de façon
+qu'il soit bien disposé pour le calcul.
+
+
+```
+posst ←   d1 ↑ poss
+propt ← ⍉ d2 ↑ prop
+```
+
+Calculer le tableau des notes.
+
+
+```
+r ← posst +.= propt
+∇
+```
+

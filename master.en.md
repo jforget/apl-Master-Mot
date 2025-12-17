@@ -466,3 +466,100 @@ r ← poss[ip;] , letters[il]
 ∇
 ```
 
+### Computing the note for a proposition
+
+If both parameters  are 5-char codes, no problem to  compute the note.
+The program  compares the corresponding  chars in both  strings, which
+gives a vector with 5 boolean  values. Then we add these boolean value
+(converted to integers 0 or 1) and this is the final result.
+
+If both  parameters are  strings, but  one of them  is shorter  than 5
+chars, the  program must truncate the  longer string to the  length of
+the shorter one. Then the char-wise  comparison is possible and we can
+convert the booleans to integers and add them.
+
+If both parameters  are lists of strings, that  is, rectangular arrays
+of chars,  the computation of the  note must be some  kind of external
+product.  For  instance,   if  we  have  8  possible   codes  with  10
+propositions,  then the  result  must  be an  array  of integers  with
+dimension <tt>⍴ = (8 10)</tt>.
+
+Suppose the <tt>prop</tt> variable contains
+
+
+```
+pouce
+index
+coude
+```
+
+and the <tt>poss</tt> variable contains
+
+
+```
+col
+cou
+pou
+```
+
+then the result of <tt>poss master∆note prop</tt> will be
+
+
+```
+.     pouce index coude
+col :   1     0     2
+cou :   2     0     3
+pou :   3     0     2
+```
+
+In  an abstract  fashion, using  <tt>master∆note</tt> on  a vector  of
+possible codes and on a vector  of proposition gives an array <tt>poss
+∘.note prop</tt> with an  external product (<i>jot</i>). Actually, the
+vector of possible  codes is an array  of chars with <tt>⍴  = 3 3</tt>
+and, after truncation  the vector of propositions is also  an array of
+chars with <tt>⍴ = 3 3</tt>. The computation of the notes is therefore
+done with an internal product <tt>+.=</tt>
+
+
+```
+.     p   i   c
+.     o   n   o
+.     u   d   u
+.
+col   1   0   2
+cou   2   0   3
+pou   3   0   2
+```
+
+#### `master∆note`
+
+Compute the dimension to truncate both parameters.
+
+
+```
+∇ r ← poss master∆note prop; d1; d2; l1; l2; lmin; posst; propt
+l1   ← ¯1 ↑ d1 ← ⍴ poss
+l2   ← ¯1 ↑ d2 ← ⍴ prop
+lmin ← l1 ⌊ l2
+d1   ← (¯1 ↓ d1), lmin
+d2   ← (¯1 ↓ d2), lmin
+```
+
+Truncating  the  possible codes  and  the  propositions to  the  lower
+dimension.  At  the  same  time, the  program  transposes  the  second
+parameter, so it will be ready for the internal product.
+
+
+```
+posst ←   d1 ↑ poss
+propt ← ⍉ d2 ↑ prop
+```
+
+Compute the array of notes.
+
+
+```
+r ← posst +.= propt
+∇
+```
+

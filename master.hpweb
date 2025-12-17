@@ -585,3 +585,120 @@ master.apl: apl
 - code: |
     r ← poss[ip;] , letters[il]
     ∇
+- section: 0
+  fr: Calcul de la note d'une proposition
+  en: Computing the note for a proposition
+  level: 3
+- fr: |
+    Si les deux arguments sont des  chaînes à 5 caractères, aucun problème
+    pour  calculer la  note. On  compare  les deux  chaînes caractère  par
+    caractère, on obtient un vecteur de 5 valeurs booléennes et on fait la
+    somme.
+
+    Si les deux arguments sont des  chaînes, mais que l'une d'elle a moins
+    de 5 caractères, il  faut tronquer la plus longue à  la longueur de la
+    plus  courte, puis  faire la  comparaison caractère  par caractère  et
+    sommer le résultat.
+
+    Si les deux arguments sont des listes de chaînes (donc des tableaux de
+    caractères), le  calcul de  la note  se fait par  un genre  de produit
+    externe. Si par exemple, on a 8 codes possibles et 10 propositions, le
+    résultat  doit être  un  tableau d'entiers  avec  la dimension  <tt>(8
+    10)</tt>.
+
+    Ainsi, si la variable <tt>prop</tt> vaut
+- en: |
+    If both parameters  are 5-char codes, no problem to  compute the note.
+    The program  compares the corresponding  chars in both  strings, which
+    gives a vector with 5 boolean  values. Then we add these boolean value
+    (converted to integers 0 or 1) and this is the final result.
+
+    If both  parameters are  strings, but  one of them  is shorter  than 5
+    chars, the  program must truncate the  longer string to the  length of
+    the shorter one. Then the char-wise  comparison is possible and we can
+    convert the booleans to integers and add them.
+
+    If both parameters  are lists of strings, that  is, rectangular arrays
+    of chars,  the computation of the  note must be some  kind of external
+    product.  For  instance,   if  we  have  8  possible   codes  with  10
+    propositions,  then the  result  must  be an  array  of integers  with
+    dimension <tt>⍴ = (8 10)</tt>.
+
+    Suppose the <tt>prop</tt> variable contains
+- code: |
+    pouce
+    index
+    coude
+- fr: |
+    et si la variable <tt>poss</tt> contient
+- en: |
+    and the <tt>poss</tt> variable contains
+- code: |
+    col
+    cou
+    pou
+- fr: |
+    alors le résultat de <tt>poss master∆note prop</tt> donnera
+- en: |
+    then the result of <tt>poss master∆note prop</tt> will be
+- code: |
+    .     pouce index coude
+    col :   1     0     2
+    cou :   2     0     3
+    pou :   3     0     2
+- fr: |
+    Conceptuellement, l'utilisation de <tt>master∆note</tt> sur un vecteur
+    de  codes possibles  et un  vecteur de  propositions donne  un tableau
+    <tt>poss ∘.noter  prop</tt> avec  un produit externe  (<i>jot</i>). En
+    réalité, le tableau  des codes possibles est, dans ce  cas, un tableau
+    <tt>⍴ = 3  3</tt> de caractères et le tableau  des propositions, après
+    troncation, est lui  aussi un tableau <tt>⍴ = 3  3</tt> de caractères.
+    Le calcul se fait par un produit interne <tt>+.=</tt>
+- en: |
+    In  an abstract  fashion, using  <tt>master∆note</tt> on  a vector  of
+    possible codes and on a vector  of proposition gives an array <tt>poss
+    ∘.note prop</tt> with an  external product (<i>jot</i>). Actually, the
+    vector of possible  codes is an array  of chars with <tt>⍴  = 3 3</tt>
+    and, after truncation  the vector of propositions is also  an array of
+    chars with <tt>⍴ = 3 3</tt>. The computation of the notes is therefore
+    done with an internal product <tt>+.=</tt>
+- code: |
+    .     p   i   c
+    .     o   n   o
+    .     u   d   u
+    .
+    col   1   0   2
+    cou   2   0   3
+    pou   3   0   2
+- section: master∆note
+  master.apl: 7
+  level: 4
+- fr: |
+    Calculer la dimension pour tronquer les deux paramètres.
+- en: |
+    Compute the dimension to truncate both parameters.
+- code: |
+    ∇ r ← poss master∆note prop; d1; d2; l1; l2; lmin; posst; propt
+    l1   ← ¯1 ↑ d1 ← ⍴ poss
+    l2   ← ¯1 ↑ d2 ← ⍴ prop
+    lmin ← l1 ⌊ l2
+    d1   ← (¯1 ↓ d1), lmin
+    d2   ← (¯1 ↓ d2), lmin
+- fr: |
+    Tronquer les codes possibles et les propositions à la longueur la plus
+    petite. On  en profite pour  transposer le second paramètre,  de façon
+    qu'il soit bien disposé pour le calcul.
+- en: |
+    Truncating  the  possible codes  and  the  propositions to  the  lower
+    dimension.  At  the  same  time, the  program  transposes  the  second
+    parameter, so it will be ready for the internal product.
+- code: |
+    posst ←   d1 ↑ poss
+    propt ← ⍉ d2 ↑ prop
+- fr: |
+    Calculer le tableau des notes.
+- en: |
+    Compute the array of notes.
+- code: |
+    r ← posst +.= propt
+    ∇

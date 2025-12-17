@@ -54,3 +54,13 @@ il ← (np × nl) ⍴ ⍳ nl
 ip ← ip[⍋ip]
 r ← poss[ip;] , letters[il]
 ∇
+∇ r ← poss master∆note prop; d1; d2; l1; l2; lmin; posst; propt
+l1   ← ¯1 ↑ d1 ← ⍴ poss
+l2   ← ¯1 ↑ d2 ← ⍴ prop
+lmin ← l1 ⌊ l2
+d1   ← (¯1 ↓ d1), lmin
+d2   ← (¯1 ↓ d2), lmin
+posst ←   d1 ↑ poss
+propt ← ⍉ d2 ↑ prop
+r ← posst +.= propt
+∇
