@@ -354,7 +354,7 @@ program sorts the letters.
 col ← col[⍋col]
 ```
 
-Then it checks each character, to determine if this char is followed
+Then it checks  each character, to determine if this  char is followed
 by the same char. In this case, the char is removed from the list.
 
 Actually, the logic is inverted.  The program checks each character to
@@ -372,4 +372,97 @@ character,  the function  will return  an  empty vector  instead of  a
 1-char vector.  This will never happen  in a real Master  Mot problem.
 Therefore, we disregard this bug.
 
+
+#### Generating the possible codes with length <var>n</var>
+
+To generate  the possible codes  with <var>n</var> chars,  the program
+begins with the list of possible codes with <var>n</var> - 1 chars and
+concatenate them with the chars from <tt><a href='#master∆letters' class='call'>master∆letters</a> n</tt>.
+
+Because  of the  way  <tt><a href='#master∆letters' class='call'>master∆letters</a></tt> works,  its result  is
+sorted. Therefore the 1-char possible codes are sorted. We try to keep
+this property with the <var>n</var>-char possible codes
+
+Let us suppose that the 3-char possible codes are
+
+
+```
+abc
+def
+ghi
+```
+
+and that the (sorted) list of letters for column 4 is
+
+
+```
+wxyz
+```
+
+The expected result is:
+
+
+```
+abcw
+abcx
+abcy
+abcz
+defw
+defx
+defy
+defz
+ghiw
+ghix
+ghiy
+ghiz
+```
+
+For this, we index the list of 3-char possible codes with
+
+
+```
+1 1 1 1 2 2 2 2 3 3 3 3
+```
+
+that is,  numbers 1 to  3 (because 3  possible codes) repeated  4 times
+(because 4  added letters) and at  the same time we  index the column-4
+letters with
+
+
+```
+1 2 3 4 1 2 3 4 1 2 3 4
+```
+
+that is, numbers 1 to 4  (because 4 letters) repeated 3 times (because
+3 possible codes in the previous generation).
+
+
+#### `master∆generation`
+
+How many possible codes and how many new letters?
+
+
+```
+∇ r ← poss master∆generation letters; np; nl; ip; il
+np ← ¯1 ↓ ⍴ poss
+nl ← ⍴ letters
+```
+
+Indexing the possible codes and the letters.
+
+
+```
+ip ← (np × nl) ⍴ ⍳ np
+il ← (np × nl) ⍴ ⍳ nl
+ip ← ip[⍋ip]
+```
+
+Concatenating the possible codes from the previous generation with the
+new letters.
+
+
+```
+r ← poss[ip;] , letters[il]
+∇
+```
 

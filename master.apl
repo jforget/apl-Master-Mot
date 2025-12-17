@@ -46,3 +46,11 @@ col ← prop[;n]
 col ← col[⍋col]
 r ← (col ≠ 1 ⌽ col) / col
 ∇
+∇ r ← poss master∆generation letters; np; nl; ip; il
+np ← ¯1 ↓ ⍴ poss
+nl ← ⍴ letters
+ip ← (np × nl) ⍴ ⍳ np
+il ← (np × nl) ⍴ ⍳ nl
+ip ← ip[⍋ip]
+r ← poss[ip;] , letters[il]
+∇

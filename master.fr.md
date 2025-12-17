@@ -346,7 +346,7 @@ notes ← ⍎,t[;7 8]
 
 ### Génération des différents codes possibles
 
-#### `master∆letters` - Lettres utilisées pour un position <i>n</i>
+#### `master∆letters` - Lettres utilisées pour la position <i>n</i>
 
 Dans Master Mot, la lettre de la solution en colonne <i>n</i> apparaît
 toujours  dans au  moins une  proposition dans  la même  colonne. Pour
@@ -385,4 +385,98 @@ caractère, la  fonction renvoie un  vecteur vide au lieu  d'un vecteur
 avec un seul  caractère. Cela n'arrivera jamais dans  un vrai problème
 de Master Mot. Nous pouvons faire l'impasse sur ce bug.
 
+
+#### Génération des codes possibles de <var>n</var> caractères de long
+
+La génération des  codes possibles de <var>n</var>  caractères se fait
+en prenant  les codes possibles de  <var>n</var> - 1 caractères  et en
+ajoutant un dernier caractère provenant de <tt><a href='#master∆letters' class='call'>master∆letters</a> n</tt>.
+
+De  par  son  fonctionnement,  la  fonction  <tt><a href='#master∆letters' class='call'>master∆letters</a></tt>
+renvoie un résultat trié. Donc les  codes possibles à 1 caractère sont
+eux aussi triés.  Essayons de conserver cette propriété  pour la liste
+des codes possibles à <var>n</var> caractères.
+
+Supposons que la liste des codes possibles à 3 caractères soit
+
+
+```
+abc
+def
+ghi
+```
+
+et que la liste (triée) des lettres en colonne 4 soit
+
+
+```
+wxyz
+```
+
+Le résultat attendu est :
+
+
+```
+abcw
+abcx
+abcy
+abcz
+defw
+defx
+defy
+defz
+ghiw
+ghix
+ghiy
+ghiz
+```
+
+Cela se fait en indexant la liste des codes possibles à 3 lettres par
+
+
+```
+1 1 1 1 2 2 2 2 3 3 3 3
+```
+
+c'est-à-dire les  nombres 1 à  3 (car  3 possibilités) répétés  4 fois
+(car 4 lettres dans la colonne  ajoutée) et en indexant les lettres de
+la colonne 4 par
+
+
+```
+1 2 3 4 1 2 3 4 1 2 3 4
+```
+
+c'est-à-dire les nombres 1  à 4 (car 4 lettres) répétés  3 fois (car 3
+possibilités dans la génération précédente).
+
+
+#### `master∆generation`
+
+Combien de codes possibles et combien de nouvelles lettres ?
+
+
+```
+∇ r ← poss master∆generation letters; np; nl; ip; il
+np ← ¯1 ↓ ⍴ poss
+nl ← ⍴ letters
+```
+
+Indices pour les codes possibles et pour les lettres
+
+
+```
+ip ← (np × nl) ⍴ ⍳ np
+il ← (np × nl) ⍴ ⍳ nl
+ip ← ip[⍋ip]
+```
+
+Concaténation des codes possibles de la génération précédente avec les
+lettres
+
+
+```
+r ← poss[ip;] , letters[il]
+∇
+```
 
