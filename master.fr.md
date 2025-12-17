@@ -344,3 +344,45 @@ notes ← ⍎,t[;7 8]
 ∇
 ```
 
+### Génération des différents codes possibles
+
+#### `master∆letters` - Lettres utilisées pour un position <i>n</i>
+
+Dans Master Mot, la lettre de la solution en colonne <i>n</i> apparaît
+toujours  dans au  moins une  proposition dans  la même  colonne. Pour
+extraire les lettres possibles pour  la colonne <i>n</i>, le programme
+commence par extraire la colonne <i>n</i> en son entier.
+
+
+```
+∇ r ← master∆letters n; col
+col ← prop[;n]
+```
+
+Mais il y a des doublons. Pour les éliminer, le programme commence par
+trier les lettres.
+
+
+```
+col ← col[⍋col]
+```
+
+Ensuite, il teste  chaque caractère pour savoir s'il est  suivi par un
+caractère identique. Si oui, il le supprime.
+
+En fait, la logique est  inversée. Le programme teste chaque caractère
+pour savoir s'il  est suivi par un caractère différent.  Si oui, il le
+conserve.
+
+
+```
+r ← (col ≠ 1 ⌽ col) / col
+∇
+```
+
+Remarque : si  la colonne <i>n</i> contient <var>x</var>  fois le même
+caractère, la  fonction renvoie un  vecteur vide au lieu  d'un vecteur
+avec un seul  caractère. Cela n'arrivera jamais dans  un vrai problème
+de Master Mot. Nous pouvons faire l'impasse sur ce bug.
+
+

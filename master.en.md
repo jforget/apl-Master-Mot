@@ -331,3 +331,45 @@ notes ← ⍎,t[;7 8]
 ∇
 ```
 
+### Generating the various possible codes
+
+#### `master∆letters` - Letters used at column <i>n</i>
+
+In Master  Mot, all  letters of  the solution appear  in at  least one
+proposition,  at the  proper column.  So we  need to  extract all  the
+letters that appear  in column <i>n</i>. For this,  the program begins
+with extracting the whole column.
+
+
+```
+∇ r ← master∆letters n; col
+col ← prop[;n]
+```
+
+But there are duplicates and we  need to eliminate them. For this, the
+program sorts the letters.
+
+
+```
+col ← col[⍋col]
+```
+
+Then it checks each character, to determine if this char is followed
+by the same char. In this case, the char is removed from the list.
+
+Actually, the logic is inverted.  The program checks each character to
+determine if  it is followed  by a different  char. In this  case, the
+char is kept.
+
+
+```
+r ← (col ≠ 1 ⌽ col) / col
+∇
+```
+
+Remark. If column <i>n</i> contains <var>x</var> instances of the same
+character,  the function  will return  an  empty vector  instead of  a
+1-char vector.  This will never happen  in a real Master  Mot problem.
+Therefore, we disregard this bug.
+
+

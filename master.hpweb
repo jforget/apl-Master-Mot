@@ -426,3 +426,60 @@ master.apl: apl
     prop  ← t[;1 + ⍳5]
     notes ← ⍎,t[;7 8]
     ∇
+- section: 0
+  fr: Génération des différents codes possibles
+  en: Generating the various possible codes
+  level: 3
+- section: master∆letters
+  fr: Lettres utilisées pour la position <i>n</i>
+  en: Letters used at column <i>n</i>
+  master.apl: 5
+  level: 4
+- fr: |
+    Dans Master Mot, la lettre de la solution en colonne <i>n</i> apparaît
+    toujours  dans au  moins une  proposition dans  la même  colonne. Pour
+    extraire les lettres possibles pour  la colonne <i>n</i>, le programme
+    commence par extraire la colonne <i>n</i> en son entier.
+- en: |
+    In Master  Mot, all  letters of  the solution appear  in at  least one
+    proposition,  at the  proper column.  So we  need to  extract all  the
+    letters that appear  in column <i>n</i>. For this,  the program begins
+    with extracting the whole column.
+- code: |
+    ∇ r ← master∆letters n; col
+    col ← prop[;n]
+- fr: |
+    Mais il y a des doublons. Pour les éliminer, le programme commence par
+    trier les lettres.
+- en: |
+    But there are duplicates and we  need to eliminate them. For this, the
+    program sorts the letters.
+- code: |
+    col ← col[⍋col]
+- fr: |
+    Ensuite, il teste  chaque caractère pour savoir s'il est  suivi par un
+    caractère identique. Si oui, il le supprime.
+
+    En fait, la logique est  inversée. Le programme teste chaque caractère
+    pour savoir s'il  est suivi par un caractère différent.  Si oui, il le
+    conserve.
+- en: |
+    Then it checks  each character, to determine if this  char is followed
+    by the same char. In this case, the char is removed from the list.
+
+    Actually, the logic is inverted.  The program checks each character to
+    determine if  it is followed  by a different  char. In this  case, the
+    char is kept.
+- code: |
+    r ← (col ≠ 1 ⌽ col) / col
+    ∇
+- fr: |
+    Remarque : si  la colonne <i>n</i> contient <var>x</var>  fois le même
+    caractère, la  fonction renvoie un  vecteur vide au lieu  d'un vecteur
+    avec un seul  caractère. Cela n'arrivera jamais dans  un vrai problème
+    de Master Mot. Nous pouvons faire l'impasse sur ce bug.
+- en: |
+    Remark. If column <i>n</i> contains <var>x</var> instances of the same
+    character,  the function  will return  an  empty vector  instead of  a
+    1-char vector.  This will never happen  in a real Master  Mot problem.
+    Therefore, we disregard this bug.

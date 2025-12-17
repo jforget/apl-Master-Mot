@@ -41,3 +41,8 @@ t ← t[sel/⍳n;]
 prop  ← t[;1 + ⍳5]
 notes ← ⍎,t[;7 8]
 ∇
+∇ r ← master∆letters n; col
+col ← prop[;n]
+col ← col[⍋col]
+r ← (col ≠ 1 ⌽ col) / col
+∇
