@@ -594,6 +594,45 @@ compatible.
 A last example is code  <tt>'pouc'</tt>. It is not compatible, because
 its note is 4, which is greater than the final note 3.
 
+Now, let us  examine how filtering work with a  list of possible codes
+against a list of propositions. We use the following examples.
+
+
+<pre>
+coupe 4
+paume 2
+choux 1
+      coupe paume choux
+cou :   3     1     1
+cha :   1     0     2
+phi :   0     1     1
+</pre>
+
+
+Checking the first condition will be
+
+
+<pre>
+( 1   1   1 )       ( 3   1   1 )       ( 4   2   1 )
+( 1   1   0 )   ←   ( 1   0   2 )   ≤   ( 4   2   1 )
+( 1   1   1 )       ( 0   1   1 )       ( 4   2   1 )
+</pre>
+
+
+Checking the second condition will be
+
+
+<pre>
+( 1   1   1 )       ( 3   1   1 )       ( 2   0   ¯1 )
+( 0   1   1 )   ←   ( 1   0   2 )   ≥   ( 2   0   ¯1 )
+( 0   1   1 )       ( 0   1   1 )       ( 2   0   ¯1 )
+</pre>
+
+
+As you can  see in this example, the propositions'  notes (vector with
+dimension 3) must  be reorganised as a 3×3 array:  1 line per possible
+code, 1 column per proposition.
+
 
 ```
 ∇ r ← master∆filter poss; empty; npr; dim; sel1; sel2; sel

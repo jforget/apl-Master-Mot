@@ -607,6 +607,46 @@ soit 1. Le code <tt>'rif'</tt> n'est donc pas compatible.
 Finalement, le code <tt>'pouc'</tt> n'est  pas compatible, car sa note
 reçue est 4, plus grande que la note finale 3.
 
+Maintenant,  examinons  le  cas  du  filtrage  d'une  liste  de  codes
+possibles  en fonction  d'une liste  de propositions.  Considérons les
+propositions et codes suivants.
+
+
+<pre>
+coupe 4
+paume 2
+choux 1
+      coupe paume choux
+cou :   3     1     1
+cha :   1     0     2
+phi :   0     1     1
+</pre>
+
+
+Le test de la première condition sera
+
+
+<pre>
+( 1   1   1 )       ( 3   1   1 )       ( 4   2   1 )
+( 1   1   0 )   ←   ( 1   0   2 )   ≤   ( 4   2   1 )
+( 1   1   1 )       ( 0   1   1 )       ( 4   2   1 )
+</pre>
+
+
+Le test de la deuxième condition sera
+
+
+<pre>
+( 1   1   1 )       ( 3   1   1 )       ( 2   0   ¯1 )
+( 0   1   1 )   ←   ( 1   0   2 )   ≥   ( 2   0   ¯1 )
+( 0   1   1 )       ( 0   1   1 )       ( 2   0   ¯1 )
+</pre>
+
+
+Comme  on peut  le voir,  les notes  des propositions  (un vecteur  de
+dimension 3) doivent  être réorganisées en un tableau 3×3,  à savoir 1
+ligne par code possible et une colonne par proposition.
+
 
 ```
 ∇ r ← master∆filter poss; empty; npr; dim; sel1; sel2; sel
