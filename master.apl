@@ -64,3 +64,11 @@ posst ←   d1 ↑ poss
 propt ← ⍉ d2 ↑ prop
 r ← posst +.= propt
 ∇
+∇ r ← master∆filter poss; empty; npr; dim; sel1; sel2; sel
+empty ← 5 - ¯1 ↑ ⍴ poss
+dim   ← ⍴ npr ← poss master∆note  prop
+sel1  ← npr ≤ dim ⍴ notes
+sel2  ← npr ≥ (dim ⍴ notes) - empty
+sel   ← ∧ / sel1, sel2
+r ← sel ⌿ poss
+∇

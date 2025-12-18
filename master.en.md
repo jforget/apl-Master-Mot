@@ -563,3 +563,46 @@ r ← posst +.= propt
 ∇
 ```
 
+### `master∆filter` - Sifting through the list of possible codes
+
+A  partial code  is compatible  with a  proposition if  both following
+conditions are fulfilled:
+
+<ol>
+<li>The assigned note is lower than or equal to the proposition's final note.</li>
+
+<li>The assigned  note is greater  than or equal to  the proposition's
+final note minus the number of still empty slots. That means that even
+if the filling of each empty slot  brings a new black mark, we are too
+much behind to reach the final note.</li>
+
+</ol>
+
+Example. The proposition is <tt>'pouce'</tt>  with a final note 3. The
+program checks the truncated code <tt>'ro'</tt>. Its note is 1 and the
+number of empty slots is 3. Since note 1 is lower than or equal to the
+final note 3, and since it is  greater than or equalt to the result of
+3-3 (final  note - empty  slots), the truncated code  <tt>'ro'</tt> is
+compatible.
+
+Now  we check  possible code  <tt>'rif'</tt>. Its  note is  0 and  the
+number of  empty slots is  2. On  one hand the  note is lower  than or
+equal to the final note 3, but on  the other hand it is lower than the
+difference 3-2 (final note -  empty slots). Code <tt>'rif'</tt> is not
+compatible.
+
+A last example is code  <tt>'pouc'</tt>. It is not compatible, because
+its note is 4, which is greater than the final note 3.
+
+
+```
+∇ r ← master∆filter poss; empty; npr; dim; sel1; sel2; sel
+empty ← 5 - ¯1 ↑ ⍴ poss
+dim   ← ⍴ npr ← poss master∆note  prop
+sel1  ← npr ≤ dim ⍴ notes
+sel2  ← npr ≥ (dim ⍴ notes) - empty
+sel   ← ∧ / sel1, sel2
+r ← sel ⌿ poss
+∇
+```
+

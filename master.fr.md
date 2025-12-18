@@ -577,3 +577,45 @@ r ← posst +.= propt
 ∇
 ```
 
+### `master∆filter` - Filtrer la liste des codes possibles
+
+Un code  possible tronqué est  compatible avec une proposition  si les
+deux conditions suivantes sont vérifiées&nbsp;:
+
+<ol>
+<li>la note reçue est inférieure ou égale à la note finale de la proposition,</li>
+
+<li>la  note reçue  est supérieure  ou égale  à la  note finale  de la
+proposition moins  le nombre de  places vides. Même si  le remplissage
+des places  vides donne lieu à  l'ajout de fiches noires,  nous sommes
+trop en retard pour retrouver la note finale.</li>
+
+</ol>
+
+Exemple. La proposition est <tt>'pouce'</tt>  et sa note finale est 3.
+Le programme teste le code <tt>'ro'</tt>.  Sa note est 1, le nombre de
+places vides est 3. Comme la note  1 est inférieure ou égale à la note
+finale 3, et comme  la note 1 est supérieure ou  égale à la différence
+3-3 (note finale - places vides), alors le code est compatible.
+
+Testons maintenant le  code possible <tt>'rif'</tt>. Sa note  est 0 et
+le nombre de places vides est 2.  La note reçue est bien inférieure ou
+égale à  la note  finale 3, mais  d'un autre côté,  la note  reçue est
+inférieure à la différence (note finale - places vides), qui vaut 3-2,
+soit 1. Le code <tt>'rif'</tt> n'est donc pas compatible.
+
+Finalement, le code <tt>'pouc'</tt> n'est  pas compatible, car sa note
+reçue est 4, plus grande que la note finale 3.
+
+
+```
+∇ r ← master∆filter poss; empty; npr; dim; sel1; sel2; sel
+empty ← 5 - ¯1 ↑ ⍴ poss
+dim   ← ⍴ npr ← poss master∆note  prop
+sel1  ← npr ≤ dim ⍴ notes
+sel2  ← npr ≥ (dim ⍴ notes) - empty
+sel   ← ∧ / sel1, sel2
+r ← sel ⌿ poss
+∇
+```
+
