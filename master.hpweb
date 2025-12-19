@@ -171,11 +171,23 @@ master.apl: apl
     lettres minuscules dans un autre fichier.  Mais ne les mélangez pas au
     sein  d'un  même  fichier.  Quant  aux  écrans,  trémas  et  cédilles,
     oubliez-les (cf <tt>foret</tt> dans l'exemple ci-dessus).
+
+    Une  fois le  fichier sauvegardé,  ouvrez  APL et  lancer la  fonction
+    <tt>master∆solution</tt> avec  le nom  du fichier en  paramètre (entre
+    quotes).
 - en: |
     You may use lower-caps letters in  a first file and upper-caps letters
     in  another file,  but  do not  mix  them  in the  same  file. As  for
     diacritics, do not use them  (see <tt>foret</tt> in the example above,
     which corresponds to the French word "forêt").
+
+    When   the   file   is   saved,   open   APL   and   launch   function
+    <tt>master∆solution</tt>,  with  the  filepath  between  quote  as  an
+    argument.
+- code: |
+    apl -f master.apl
+    master∆solution 'test.data'
+    )off
 - section: 0
   fr: Les programmes
   en: The programs
@@ -817,4 +829,61 @@ master.apl: apl
     sel2  ← npr ≥ (dim ⍴ notes) - empty
     sel   ← ∧ / sel1, sel2
     r ← sel ⌿ poss
+    ∇
+- section: master∆solution
+  master.apl: 9
+  level: 3
+  fr: Le programme de résolution
+  en: The solving program
+- fr: |
+    Après la phase d'initialisation, qui consiste à lire le fichier et en extraire les
+    variables <tt>prop</tt> et <tt>notes</tt>, la résolution se fait ainsi.
+
+    <ol>
+    <li>Établir la liste des codes possibles à 1 lettre. C'est le résultat de <tt>@master∆letters@</tt>,
+    converti en un tableau à <var>n</var> lignes et 1 colonne.</li>
+    <li>Filtrer cette liste de codes possibles.</li>
+    <li>Établir la liste des codes possibles à 2 lettres.</li>
+    <li>Filtrer cette nouvelle liste de codes possibles.</li>
+    </ol>
+
+    Et ainsi de suite jusqu'à la liste filtrée de codes à 5 lettres.
+
+    Notons  qu'il faut  passer une  ligne  avant la  liste des  codes à  5
+    lettres,  car cette  liste contient  en général  un seul  code et  son
+    affichage se  fait sans passage  à la  ligne. Je pense  qu'il faudrait
+    aussi prévoir le cas pour les listes  de codes possibles à 4, ou 3, ou
+    2 lettres, mais je fais l'impasse sur ce problème.
+- en: |
+
+    After the initialisation  step, in which we read the  file and extract
+    the variables <tt>prop</tt> and <tt>notes</tt>, solving the problem is
+
+    <ol>
+    <li>Build the list of 1-char possible codes. This is the result of <tt>@master∆letters@</tt>,
+    converted to an array with <var>n</var> lines and 1 column.</li>
+    <li>Filter this list of possible codes.</li>
+    <li>Build the list of 2-char possible codes.</li>
+    <li>Filter this new list of possible codes.</li>
+    </ol>
+
+    And so on, until we have a filtered list of 5-char codes.
+
+    As you can see, we need to skip to a new line before printing the list
+    of 5-char  codes. The  reason is  that usually,  this list  contains a
+    single code and therefore it is displayed without changing line. In an
+    ideal fashion, we should do the  same when displaying the 4-char codes
+    list, the 3-char  codes list and the 2-char codes  list, but actually,
+    it  will  not be  necessary  with  usual  Master  Mot problems.  So  I
+    disregard this problem.
+- code: |
+    ∇ master∆solution path; letters; n; poss
+    @master∆extract@ path
+    n ← ⍴ letters ← @master∆letters@ 1
+    ⍞ ← poss ← @master∆filter@ (n, 1) ⍴ letters
+    ⍞ ← poss ← @master∆filter@ poss @master∆generation@ @master∆letters@ 2
+    ⍞ ← poss ← @master∆filter@ poss @master∆generation@ @master∆letters@ 3
+    ⍞ ← poss ← @master∆filter@ poss @master∆generation@ @master∆letters@ 4
+    ⍞ ← @master∆nl@
+    ⍞ ← poss ← @master∆filter@ poss @master∆generation@ @master∆letters@ 5
     ∇

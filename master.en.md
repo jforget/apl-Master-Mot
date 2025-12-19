@@ -130,6 +130,16 @@ in  another file,  but  do not  mix  them  in the  same  file. As  for
 diacritics, do not use them  (see <tt>foret</tt> in the example above,
 which corresponds to the French word "forêt").
 
+When   the   file   is   saved,   open   APL   and   launch   function
+<tt>master∆solution</tt>,  with  the  filepath  between  quote  as  an
+argument.
+
+
+```
+apl -f master.apl
+master∆solution 'test.data'
+)off
+```
 
 ## The programs
 
@@ -642,6 +652,44 @@ sel1  ← npr ≤ dim ⍴ notes
 sel2  ← npr ≥ (dim ⍴ notes) - empty
 sel   ← ∧ / sel1, sel2
 r ← sel ⌿ poss
+∇
+```
+
+### `master∆solution` - The solving program
+
+
+ After the initialisation  step, in which we read the  file and extract
+ the variables <tt>prop</tt> and <tt>notes</tt>, solving the problem is
+
+ <ol>
+ <li>Build the list of 1-char possible codes. This is the result of <tt><a href='#master∆letters' class='call'>master∆letters</a></tt>,
+ converted to an array with <var>n</var> lines and 1 column.</li>
+ <li>Filter this list of possible codes.</li>
+ <li>Build the list of 2-char possible codes.</li>
+ <li>Filter this new list of possible codes.</li>
+ </ol>
+
+ And so on, until we have a filtered list of 5-char codes.
+
+ As you can see, we need to skip to a new line before printing the list
+ of 5-char  codes. The  reason is  that usually,  this list  contains a
+ single code and therefore it is displayed without changing line. In an
+ ideal fashion, we should do the  same when displaying the 4-char codes
+ list, the 3-char  codes list and the 2-char codes  list, but actually,
+ it  will  not be  necessary  with  usual  Master  Mot problems.  So  I
+ disregard this problem.
+
+
+```
+∇ master∆solution path; letters; n; poss
+master∆extract path
+n ← ⍴ letters ← master∆letters 1
+⍞ ← poss ← master∆filter (n, 1) ⍴ letters
+⍞ ← poss ← master∆filter poss master∆generation master∆letters 2
+⍞ ← poss ← master∆filter poss master∆generation master∆letters 3
+⍞ ← poss ← master∆filter poss master∆generation master∆letters 4
+⍞ ← master∆nl
+⍞ ← poss ← master∆filter poss master∆generation master∆letters 5
 ∇
 ```
 
