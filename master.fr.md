@@ -2,7 +2,7 @@
 
 # Master mot
 
-## `master∆license`
+## <a name='master∆license'>`master∆license`</a>
 
 La  partie texte  de  ce  dépôt git  est  distribuée  sous la  licence
 Creative Commons avec attribution et partage dans les mêmes conditions
@@ -143,7 +143,7 @@ sein  d'un  même  fichier.  Quant  aux  écrans,  trémas  et  cédilles,
 oubliez-les (cf <tt>foret</tt> dans l'exemple ci-dessus).
 
 Une  fois le  fichier sauvegardé,  ouvrez  APL et  lancer la  fonction
-<tt>master∆solution</tt> avec  le nom  du fichier en  paramètre (entre
+<tt><a href='#master∆solution' class='call'>master∆solution</a></tt> avec le nom du fichier en  paramètre (entre
 quotes).
 
 
@@ -171,7 +171,7 @@ même si je n'ai pas l'intention de publier mon programme de Master Mot sur
 <a href='https://www.gnu.org/software/apl/Bits_and_Pieces/'>APL bits and pieces</a>.
 
 
-### `master∆slurp` - Chargement du fichier
+### <a name='master∆slurp'>`master∆slurp` - Chargement du fichier</a>
 
 Cette  fonction  sert  à  charger   un  fichier  dans  un  vecteur  de
 caractères.  Elle  n'est  pas   portable.  La  version  ci-dessous  ne
@@ -296,7 +296,7 @@ simultanément précédée  et suivie  par un  (LF). Mais  comment peut-on
 avoir un problème avec un seul coup ?
 
 
-#### `master∆nl` - Caractère NL (ou LF) et manque de portabilité
+#### <a name='master∆nl'>`master∆nl` - Caractère NL (ou LF) et manque de portabilité</a>
 
 Je ne  sais pas comment  spécifier un caractère NL  ou LF dans  le cas
 général. J'admets  que je  n'ai pas trop  regardé. En  revanche, c'est
@@ -309,7 +309,7 @@ portabilité dans une ligne de programme unique.
 master∆nl ← "\n"
 ```
 
-#### `master∆extract` - Extraction des données du problème
+#### <a name='master∆extract'>`master∆extract` - Extraction des données du problème</a>
 
 Le programme reçoit le chemin d'accès  du fichier et alimente les deux
 variables  globales <tt>prop</tt>  et  <tt>notes</tt>.  Il ne  renvoie
@@ -356,7 +356,7 @@ notes ← ⍎,t[;7 8]
 
 ### Génération des différents codes possibles
 
-#### `master∆letters` - Lettres utilisées pour la position <i>n</i>
+#### <a name='master∆letters'>`master∆letters` - Lettres utilisées pour la position <i>n</i></a>
 
 Dans Master Mot, la lettre de la solution en colonne <i>n</i> apparaît
 toujours  dans au  moins une  proposition dans  la même  colonne. Pour
@@ -461,7 +461,7 @@ c'est-à-dire les nombres 1  à 4 (car 4 lettres) répétés  3 fois (car 3
 possibilités dans la génération précédente).
 
 
-#### `master∆generation`
+#### <a name='master∆generation'>`master∆generation`</a>
 
 Combien de codes possibles et combien de nouvelles lettres ?
 
@@ -526,7 +526,7 @@ cou
 pou
 ```
 
-alors le résultat de <tt>poss master∆note prop</tt> donnera
+alors le résultat de <tt>poss <a href='#master∆note' class='call'>master∆note</a> prop</tt> donnera
 
 
 ```
@@ -536,7 +536,7 @@ cou :   2     0     3
 pou :   3     0     2
 ```
 
-Conceptuellement, l'utilisation de <tt>master∆note</tt> sur un vecteur
+Conceptuellement, l'utilisation de <tt><a href='#master∆note' class='call'>master∆note</a></tt> sur un vecteur
 de  codes possibles  et un  vecteur de  propositions donne  un tableau
 <tt>poss ∘.noter  prop</tt> avec  un produit externe  (<i>jot</i>). En
 réalité, le tableau  des codes possibles est, dans ce  cas, un tableau
@@ -555,7 +555,7 @@ cou   2   0   3
 pou   3   0   2
 ```
 
-#### `master∆note`
+#### <a name='master∆note'>`master∆note`</a>
 
 Calculer la dimension pour tronquer les deux paramètres.
 
@@ -587,7 +587,7 @@ r ← posst +.= propt
 ∇
 ```
 
-### `master∆filter` - Filtrer la liste des codes possibles
+### <a name='master∆filter'>`master∆filter` - Filtrer la liste des codes possibles</a>
 
 Un code  possible tronqué est  compatible avec une proposition  si les
 deux conditions suivantes sont vérifiées&nbsp;:
@@ -669,7 +669,7 @@ r ← sel ⌿ poss
 ∇
 ```
 
-### `master∆solution` - Le programme de résolution
+### <a name='master∆solution'>`master∆solution` - Le programme de résolution</a>
 
 Après la phase d'initialisation, qui consiste à lire le fichier et en extraire les
 variables <tt>prop</tt> et <tt>notes</tt>, la résolution se fait ainsi.

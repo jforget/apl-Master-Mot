@@ -173,7 +173,7 @@ master.apl: apl
     oubliez-les (cf <tt>foret</tt> dans l'exemple ci-dessus).
 
     Une  fois le  fichier sauvegardé,  ouvrez  APL et  lancer la  fonction
-    <tt>master∆solution</tt> avec  le nom  du fichier en  paramètre (entre
+    <tt>@master∆solution@</tt> avec le nom du fichier en  paramètre (entre
     quotes).
 - en: |
     You may use lower-caps letters in  a first file and upper-caps letters
@@ -182,11 +182,11 @@ master.apl: apl
     which corresponds to the French word "forêt").
 
     When   the   file   is   saved,   open   APL   and   launch   function
-    <tt>master∆solution</tt>,  with  the  filepath  between  quote  as  an
+    <tt>@master∆solution@</tt>, with the  filepath  between  quote  as  an
     argument.
 - code: |
     apl -f master.apl
-    master∆solution 'test.data'
+    @master∆solution@ 'test.data'
     )off
 - section: 0
   fr: Les programmes
@@ -650,16 +650,16 @@ master.apl: apl
     cou
     pou
 - fr: |
-    alors le résultat de <tt>poss master∆note prop</tt> donnera
+    alors le résultat de <tt>poss @master∆note@ prop</tt> donnera
 - en: |
-    then the result of <tt>poss master∆note prop</tt> will be
+    then the result of <tt>poss @master∆note@ prop</tt> will be
 - code: |
     .     pouce index coude
     col :   1     0     2
     cou :   2     0     3
     pou :   3     0     2
 - fr: |
-    Conceptuellement, l'utilisation de <tt>master∆note</tt> sur un vecteur
+    Conceptuellement, l'utilisation de <tt>@master∆note@</tt> sur un vecteur
     de  codes possibles  et un  vecteur de  propositions donne  un tableau
     <tt>poss ∘.noter  prop</tt> avec  un produit externe  (<i>jot</i>). En
     réalité, le tableau  des codes possibles est, dans ce  cas, un tableau
@@ -667,7 +667,7 @@ master.apl: apl
     troncation, est lui  aussi un tableau <tt>⍴ = 3  3</tt> de caractères.
     Le calcul se fait par un produit interne <tt>+.=</tt>
 - en: |
-    In  an abstract  fashion, using  <tt>master∆note</tt> on  a vector  of
+    In  an abstract fashion, using <tt>@master∆note@</tt> on  a vector  of
     possible codes and on a vector  of proposition gives an array <tt>poss
     ∘.note prop</tt> with an  external product (<i>jot</i>). Actually, the
     vector of possible  codes is an array  of chars with <tt>⍴  = 3 3</tt>

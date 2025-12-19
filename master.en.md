@@ -2,7 +2,7 @@
 
 # Master Word
 
-## `master∆license`
+## <a name='master∆license'>`master∆license`</a>
 
 The  text part  of  this repository  is licensed  under  the terms  of
 Creative  Commons, with  attribution and  share-alike (CC-BY-SA).  The
@@ -131,7 +131,7 @@ diacritics, do not use them  (see <tt>foret</tt> in the example above,
 which corresponds to the French word "forêt").
 
 When   the   file   is   saved,   open   APL   and   launch   function
-<tt>master∆solution</tt>,  with  the  filepath  between  quote  as  an
+<tt><a href='#master∆solution' class='call'>master∆solution</a></tt>, with the  filepath  between  quote  as  an
 argument.
 
 
@@ -157,7 +157,7 @@ even if I have no intention to publish my Master Mot program on
 <a href='https://www.gnu.org/software/apl/Bits_and_Pieces/'>APL bits and pieces</a>.
 
 
-### `master∆slurp` - Loading a file
+### <a name='master∆slurp'>`master∆slurp` - Loading a file</a>
 
 This function aims to extract the content of a file and load it into a
 char vector. This  function is not portable.  The implementation below
@@ -282,7 +282,7 @@ preceded and followed by a (LF).  But seriously, can you have a Master
 Mot problem consisting of a single line?
 
 
-#### `master∆nl` - Unportable NL (or LF) char
+#### <a name='master∆nl'>`master∆nl` - Unportable NL (or LF) char</a>
 
 I do  not know how  I can enter  a NL (or LF)  char in a  portable APL
 program. I admit that I have not  searched for very long. On the other
@@ -295,7 +295,7 @@ unique program line.
 master∆nl ← "\n"
 ```
 
-#### `master∆extract` - Extracting the problem data
+#### <a name='master∆extract'>`master∆extract` - Extracting the problem data</a>
 
 The program  receives the pathname of  the problem file and  feeds two
 global variables <tt>prop</tt> and  <tt>notes</tt>. There is no return
@@ -343,7 +343,7 @@ notes ← ⍎,t[;7 8]
 
 ### Generating the various possible codes
 
-#### `master∆letters` - Letters used at column <i>n</i>
+#### <a name='master∆letters'>`master∆letters` - Letters used at column <i>n</i></a>
 
 In Master  Mot, all  letters of  the solution appear  in at  least one
 proposition,  at the  proper column.  So we  need to  extract all  the
@@ -447,7 +447,7 @@ that is, numbers 1 to 4  (because 4 letters) repeated 3 times (because
 3 possible codes in the previous generation).
 
 
-#### `master∆generation`
+#### <a name='master∆generation'>`master∆generation`</a>
 
 How many possible codes and how many new letters?
 
@@ -512,7 +512,7 @@ cou
 pou
 ```
 
-then the result of <tt>poss master∆note prop</tt> will be
+then the result of <tt>poss <a href='#master∆note' class='call'>master∆note</a> prop</tt> will be
 
 
 ```
@@ -522,7 +522,7 @@ cou :   2     0     3
 pou :   3     0     2
 ```
 
-In  an abstract  fashion, using  <tt>master∆note</tt> on  a vector  of
+In  an abstract fashion, using <tt><a href='#master∆note' class='call'>master∆note</a></tt> on  a vector  of
 possible codes and on a vector  of proposition gives an array <tt>poss
 ∘.note prop</tt> with an  external product (<i>jot</i>). Actually, the
 vector of possible  codes is an array  of chars with <tt>⍴  = 3 3</tt>
@@ -541,7 +541,7 @@ cou   2   0   3
 pou   3   0   2
 ```
 
-#### `master∆note`
+#### <a name='master∆note'>`master∆note`</a>
 
 Compute the dimension to truncate both parameters.
 
@@ -573,7 +573,7 @@ r ← posst +.= propt
 ∇
 ```
 
-### `master∆filter` - Sifting through the list of possible codes
+### <a name='master∆filter'>`master∆filter` - Sifting through the list of possible codes</a>
 
 A  partial code  is compatible  with a  proposition if  both following
 conditions are fulfilled:
@@ -655,7 +655,7 @@ r ← sel ⌿ poss
 ∇
 ```
 
-### `master∆solution` - The solving program
+### <a name='master∆solution'>`master∆solution` - The solving program</a>
 
 
  After the initialisation  step, in which we read the  file and extract
