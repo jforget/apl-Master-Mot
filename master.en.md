@@ -91,8 +91,8 @@ two (or more) solutions and it is  up to the user to select the proper
 one.
 
 The magazine gives a  detailed solution, with step-by-step deductions.
-With the example above, the solution compares code <tt>paume</tt> with
-<tt>palme</tt> and concludes that the letter  at position 3 is "u". My
+With the example above, the first step is comparing code <tt>paume</tt> with
+code <tt>palme</tt> and finding that the letter  at position 3 is "u". My
 program does  not work that way.  It makes an extensive  search of all
 possible  codes. Nearly  extensive,  because it  generates all  1-char
 partial  codes, filters  the list,  builds all  2-char partial  codes,
@@ -106,7 +106,7 @@ line begins  with the 5-char proposition.  It is followed by  a single
 space (no more) and ends with the 1-digit mark. Nothing more. The line
 separator is LF, <tt>U+000A</tt>, as with any standard Unix text file.
 
-The lines that do not match the pattern 5 + space + digit are ignored.
+The lines that do not match the pattern 5 chars + space + digit are ignored.
 This allows you to add technical lines as below.
 
 
@@ -585,6 +585,22 @@ conditions are fulfilled:
 final note minus the number of still empty slots. That means that even
 if the filling of each empty slot  brings a new black mark, we are too
 much behind to reach the final note.</li>
+
+</ol>
+
+On the other  hand, a partial code is incompatible  with a proposition
+if either condition is fulfilled:
+
+<ol>
+
+<li>The assigned  note is greater  than the proposition's  final note.
+When filling the empty slots, the note will increase or stay the same,
+it cannot decrease to reach the target value.</li>
+
+<li>The assigned note is lower than the proposition's final note minus
+the number of  still empty slots. That means that  even if the filling
+of each empty slot brings a new  black mark, we are too much behind to
+reach the final note.</li>
 
 </ol>
 

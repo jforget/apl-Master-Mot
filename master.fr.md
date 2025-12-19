@@ -99,8 +99,8 @@ tient pas  compte de cette  propriété, il donne  dans ce cas  les deux
 solutions et c'est à l'utilisateur de faire le tri.
 
 Le  magazine  donne  une   solution  détaillée,  avec  les  déductions
-successives. Par exemple, en comparant la ligne <tt>paume</tt> avec la
-ligne <tt>palme</tt>, nous remarquons que  la lettre en position 3 est
+successives. Par exemple, la première déduction consiste à comparer la ligne <tt>paume</tt> avec la
+ligne <tt>palme</tt>, et à  remarquer que  la lettre en position 3 est
 un  «&nbsp;u&nbsp;».  Mon  programme  ne   cherche  pas  à  faire  des
 déductions, il  effectue une recherche exhaustive  de la combinatoire.
 Enfin, presque  exhaustive. Il commence  par créer la liste  des codes
@@ -117,7 +117,7 @@ proposition, 5 caractères,  puis un espace (pas plus), puis  la note à
 un  chiffre.  Rien  de  plus.  Le  séparateur  de  ligne  est  le  LF,
 <tt>U+000A</tt>, comme le standard UNIX.
 
-Les lignes qui ne  se conforment pas au modèle 5 +  espace + note sont
+Les lignes qui ne se conforment pas au modèle 5 caractères + espace + note sont
 ignorées. Cela permet  d'ajouter des lignes techniques  comme dans cet
 exemple.
 
@@ -142,7 +142,7 @@ lettres minuscules dans un autre fichier.  Mais ne les mélangez pas au
 sein  d'un  même  fichier.  Quant  aux  écrans,  trémas  et  cédilles,
 oubliez-les (cf <tt>foret</tt> dans l'exemple ci-dessus).
 
-Une  fois le  fichier sauvegardé,  ouvrez  APL et  lancer la  fonction
+Une  fois le  fichier sauvegardé,  ouvrez  APL et  lancez la  fonction
 <tt><a href='#master∆solution' class='call'>master∆solution</a></tt> avec le nom du fichier en  paramètre (entre
 quotes).
 
@@ -340,7 +340,7 @@ sel ← (master∆nl = t[;1]) ∧ (' ' = t[;7]) ∧ master∆nl = t[;9]
 t ← t[sel/⍳n;]
 ```
 
-Extrayons les  proposition et les  notes. Pour extraire les  notes, le
+Extrayons les propositions et les  notes. Pour extraire les  notes, le
 programme prend le chiffre et l'espace qui le précède. Si le programme
 ne  prend pas  l'espace, cela  donne  une chaîne  avec uniquement  des
 chiffres,  donc  l'opérateur  dequote  génère  un  nombre  à  <i>n</i>
@@ -596,9 +596,21 @@ deux conditions suivantes sont vérifiées&nbsp;:
 <li>la note reçue est inférieure ou égale à la note finale de la proposition,</li>
 
 <li>la  note reçue  est supérieure  ou égale  à la  note finale  de la
-proposition moins  le nombre de  places vides. Même si  le remplissage
-des places  vides donne lieu à  l'ajout de fiches noires,  nous sommes
-trop en retard pour retrouver la note finale.</li>
+proposition moins  le nombre de  places vides.</li>
+
+</ol>
+
+À  l'inverse,  un code  possible  tronqué  est incompatible  avec  une
+proposition si une de ces deux conditions est vérifiée&nbsp;:
+
+<ol>  <li>la  note  reçue  est  supérieure à  la  note  finale  de  la
+proposition. Avec  l'ajout de lettres  dans les places  manquantes, la
+note ne pourra pas redescendre à la valeur attendue.</li>
+
+<li>la note  reçue est inférieure à  la note finale de  la proposition
+moins le  nombre de places  vides. Même  si le remplissage  des places
+vides  donne lieu  à l'ajout  de fiches  noires, nous  sommes trop  en
+retard pour retrouver la note finale.</li>
 
 </ol>
 

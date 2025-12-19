@@ -109,8 +109,8 @@ master.apl: apl
     solutions et c'est à l'utilisateur de faire le tri.
 
     Le  magazine  donne  une   solution  détaillée,  avec  les  déductions
-    successives. Par exemple, en comparant la ligne <tt>paume</tt> avec la
-    ligne <tt>palme</tt>, nous remarquons que  la lettre en position 3 est
+    successives. Par exemple, la première déduction consiste à comparer la ligne <tt>paume</tt> avec la
+    ligne <tt>palme</tt>, et à  remarquer que  la lettre en position 3 est
     un  «&nbsp;u&nbsp;».  Mon  programme  ne   cherche  pas  à  faire  des
     déductions, il  effectue une recherche exhaustive  de la combinatoire.
     Enfin, presque  exhaustive. Il commence  par créer la liste  des codes
@@ -126,8 +126,8 @@ master.apl: apl
     one.
 
     The magazine gives a  detailed solution, with step-by-step deductions.
-    With the example above, the solution compares code <tt>paume</tt> with
-    <tt>palme</tt> and concludes that the letter  at position 3 is "u". My
+    With the example above, the first step is comparing code <tt>paume</tt> with
+    code <tt>palme</tt> and finding that the letter  at position 3 is "u". My
     program does  not work that way.  It makes an extensive  search of all
     possible  codes. Nearly  extensive,  because it  generates all  1-char
     partial  codes, filters  the list,  builds all  2-char partial  codes,
@@ -142,7 +142,7 @@ master.apl: apl
     un  chiffre.  Rien  de  plus.  Le  séparateur  de  ligne  est  le  LF,
     <tt>U+000A</tt>, comme le standard UNIX.
 
-    Les lignes qui ne  se conforment pas au modèle 5 +  espace + note sont
+    Les lignes qui ne se conforment pas au modèle 5 caractères + espace + note sont
     ignorées. Cela permet  d'ajouter des lignes techniques  comme dans cet
     exemple.
 - en: |
@@ -151,8 +151,9 @@ master.apl: apl
     space (no more) and ends with the 1-digit mark. Nothing more. The line
     separator is LF, <tt>U+000A</tt>, as with any standard Unix text file.
 
-    The lines that do not match the pattern 5 + space + digit are ignored.
+    The lines that do not match the pattern 5 chars + space + digit are ignored.
     This allows you to add technical lines as below.
+
 - code: |
     -*- encoding: utf-8; indent-tabs-mode: nil -*-
 
@@ -172,7 +173,7 @@ master.apl: apl
     sein  d'un  même  fichier.  Quant  aux  écrans,  trémas  et  cédilles,
     oubliez-les (cf <tt>foret</tt> dans l'exemple ci-dessus).
 
-    Une  fois le  fichier sauvegardé,  ouvrez  APL et  lancer la  fonction
+    Une  fois le  fichier sauvegardé,  ouvrez  APL et  lancez la  fonction
     <tt>@master∆solution@</tt> avec le nom du fichier en  paramètre (entre
     quotes).
 - en: |
@@ -420,7 +421,7 @@ master.apl: apl
     sel ← (@master∆nl@ = t[;1]) ∧ (' ' = t[;7]) ∧ @master∆nl@ = t[;9]
     t ← t[sel/⍳n;]
 - fr: |
-    Extrayons les  proposition et les  notes. Pour extraire les  notes, le
+    Extrayons les propositions et les  notes. Pour extraire les  notes, le
     programme prend le chiffre et l'espace qui le précède. Si le programme
     ne  prend pas  l'espace, cela  donne  une chaîne  avec uniquement  des
     chiffres,  donc  l'opérateur  dequote  génère  un  nombre  à  <i>n</i>
@@ -727,9 +728,21 @@ master.apl: apl
     <li>la note reçue est inférieure ou égale à la note finale de la proposition,</li>
 
     <li>la  note reçue  est supérieure  ou égale  à la  note finale  de la
-    proposition moins  le nombre de  places vides. Même si  le remplissage
-    des places  vides donne lieu à  l'ajout de fiches noires,  nous sommes
-    trop en retard pour retrouver la note finale.</li>
+    proposition moins  le nombre de  places vides.</li>
+
+    </ol>
+
+    À  l'inverse,  un code  possible  tronqué  est incompatible  avec  une
+    proposition si une de ces deux conditions est vérifiée&nbsp;:
+
+    <ol>  <li>la  note  reçue  est  supérieure à  la  note  finale  de  la
+    proposition. Avec  l'ajout de lettres  dans les places  manquantes, la
+    note ne pourra pas redescendre à la valeur attendue.</li>
+
+    <li>la note  reçue est inférieure à  la note finale de  la proposition
+    moins le  nombre de places  vides. Même  si le remplissage  des places
+    vides  donne lieu  à l'ajout  de fiches  noires, nous  sommes trop  en
+    retard pour retrouver la note finale.</li>
 
     </ol>
 
@@ -762,6 +775,22 @@ master.apl: apl
     final note minus the number of still empty slots. That means that even
     if the filling of each empty slot  brings a new black mark, we are too
     much behind to reach the final note.</li>
+
+    </ol>
+
+    On the other  hand, a partial code is incompatible  with a proposition
+    if either condition is fulfilled:
+
+    <ol>
+
+    <li>The assigned  note is greater  than the proposition's  final note.
+    When filling the empty slots, the note will increase or stay the same,
+    it cannot decrease to reach the target value.</li>
+
+    <li>The assigned note is lower than the proposition's final note minus
+    the number of  still empty slots. That means that  even if the filling
+    of each empty slot brings a new  black mark, we are too much behind to
+    reach the final note.</li>
 
     </ol>
 
