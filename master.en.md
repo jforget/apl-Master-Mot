@@ -143,7 +143,7 @@ master∆solution 'test.data'
 
 ## The programs
 
-To write these programs,  I have used the old variant  of APL, which I
+To write these programs, I have used the variant of APL from the 1970's, which I
 learnt in the early 1980's, before the advent of "disclose", "enclose"
 and "each" (<tt>⊃⊂¨</tt>). Thus, a string is a vector of chars, and an
 array of strings  is a rectangular table of chars  (which implies that
@@ -156,6 +156,44 @@ that I was advised to use when I wrote my
 even if I have no intention to publish my Master Mot program on
 <a href='https://www.gnu.org/software/apl/Bits_and_Pieces/'>APL bits and pieces</a>.
 
+
+### <a name='master∆solution'>`master∆solution` - The solving program</a>
+
+The program begins  with an initialisation step, in which  we read the
+file and extract the  variables <tt>prop</tt> and <tt>notes</tt>. Then
+solving the problem is
+
+<ol>
+<li>Build the list of 1-char possible codes. This is the result of <tt><a href='#master∆letters' class='call'>master∆letters</a></tt>,
+converted to an array with <var>n</var> lines and 1 column.</li>
+<li>Filter this list of possible codes.</li>
+<li>Build the list of 2-char possible codes.</li>
+<li>Filter this new list of possible codes.</li>
+</ol>
+
+And so on, until we have a filtered list of 5-char codes.
+
+As you can see, we need to skip to a new line before printing the list
+of 5-char  codes. The  reason is  that usually,  this list  contains a
+single code and therefore it is displayed without changing line. In an
+ideal fashion, we should do the  same when displaying the 4-char codes
+list, the 3-char  codes list and the 2-char codes  list, but actually,
+it  will  not be  necessary  with  usual  Master  Mot problems.  So  I
+disregard this problem.
+
+
+```
+∇ master∆solution path; letters; n; poss
+master∆extract path
+n ← ⍴ letters ← master∆letters 1
+⍞ ← poss ← master∆filter (n, 1) ⍴ letters
+⍞ ← poss ← master∆filter poss master∆generation master∆letters 2
+⍞ ← poss ← master∆filter poss master∆generation master∆letters 3
+⍞ ← poss ← master∆filter poss master∆generation master∆letters 4
+⍞ ← master∆nl
+⍞ ← poss ← master∆filter poss master∆generation master∆letters 5
+∇
+```
 
 ### <a name='master∆slurp'>`master∆slurp` - Loading a file</a>
 
@@ -668,44 +706,6 @@ sel1  ← npr ≤ dim ⍴ notes
 sel2  ← npr ≥ (dim ⍴ notes) - empty
 sel   ← ∧ / sel1, sel2
 r ← sel ⌿ poss
-∇
-```
-
-### <a name='master∆solution'>`master∆solution` - The solving program</a>
-
-
- After the initialisation  step, in which we read the  file and extract
- the variables <tt>prop</tt> and <tt>notes</tt>, solving the problem is
-
- <ol>
- <li>Build the list of 1-char possible codes. This is the result of <tt><a href='#master∆letters' class='call'>master∆letters</a></tt>,
- converted to an array with <var>n</var> lines and 1 column.</li>
- <li>Filter this list of possible codes.</li>
- <li>Build the list of 2-char possible codes.</li>
- <li>Filter this new list of possible codes.</li>
- </ol>
-
- And so on, until we have a filtered list of 5-char codes.
-
- As you can see, we need to skip to a new line before printing the list
- of 5-char  codes. The  reason is  that usually,  this list  contains a
- single code and therefore it is displayed without changing line. In an
- ideal fashion, we should do the  same when displaying the 4-char codes
- list, the 3-char  codes list and the 2-char codes  list, but actually,
- it  will  not be  necessary  with  usual  Master  Mot problems.  So  I
- disregard this problem.
-
-
-```
-∇ master∆solution path; letters; n; poss
-master∆extract path
-n ← ⍴ letters ← master∆letters 1
-⍞ ← poss ← master∆filter (n, 1) ⍴ letters
-⍞ ← poss ← master∆filter poss master∆generation master∆letters 2
-⍞ ← poss ← master∆filter poss master∆generation master∆letters 3
-⍞ ← poss ← master∆filter poss master∆generation master∆letters 4
-⍞ ← master∆nl
-⍞ ← poss ← master∆filter poss master∆generation master∆letters 5
 ∇
 ```
 

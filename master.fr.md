@@ -155,9 +155,9 @@ master∆solution 'test.data'
 
 ## Les programmes
 
-Pour écrire  les programmes, j'ai  utilisé la variante d'APL  que j'ai
-apprise  dans les  années 1980,  avant l'apparition  des fonctions  <i
-lang='en'>disclose</i>,     <i     lang='en'>enclose</i>     et     <i
+Pour écrire les programmes, j'ai  utilisé la variante d'APL des années
+1970 que  j'ai apprise  dans les années  1980, avant  l'apparition des
+fonctions  <i lang='en'>disclose</i>,  <i lang='en'>enclose</i>  et <i
 lang='en'>each</i>  (<tt>⊃⊂¨</tt>). Une  chaîne de  caractères est  en
 fait un  vecteur de caractères, un  vecteur de chaînes est  en fait un
 tableau de caractères (ce qui implique que toutes les chaînes aient la
@@ -170,6 +170,42 @@ qui m'a été  conseillée lorsque j'ai écrit mon
 même si je n'ai pas l'intention de publier mon programme de Master Mot sur
 <a href='https://www.gnu.org/software/apl/Bits_and_Pieces/'>APL bits and pieces</a>.
 
+
+### <a name='master∆solution'>`master∆solution` - Le programme de résolution</a>
+
+Le programme  commence par un  phase d'initialisation, qui  consiste à
+lire  le  fichier  et  en  extraire  les  variables  <tt>prop</tt>  et
+<tt>notes</tt>. Ensuite, la résolution se fait ainsi.
+
+<ol>
+<li>Établir la liste des codes possibles à 1 lettre. C'est le résultat de <tt><a href='#master∆letters' class='call'>master∆letters</a></tt>,
+converti en un tableau à <var>n</var> lignes et 1 colonne.</li>
+<li>Filtrer cette liste de codes possibles.</li>
+<li>Établir la liste des codes possibles à 2 lettres.</li>
+<li>Filtrer cette nouvelle liste de codes possibles.</li>
+</ol>
+
+Et ainsi de suite jusqu'à la liste filtrée de codes à 5 lettres.
+
+Notons  qu'il faut  passer une  ligne  avant la  liste des  codes à  5
+lettres,  car cette  liste contient  en général  un seul  code et  son
+affichage se  fait sans passage  à la  ligne. Je pense  qu'il faudrait
+aussi prévoir le cas pour les listes  de codes possibles à 4, ou 3, ou
+2 lettres, mais je fais l'impasse sur ce problème.
+
+
+```
+∇ master∆solution path; letters; n; poss
+master∆extract path
+n ← ⍴ letters ← master∆letters 1
+⍞ ← poss ← master∆filter (n, 1) ⍴ letters
+⍞ ← poss ← master∆filter poss master∆generation master∆letters 2
+⍞ ← poss ← master∆filter poss master∆generation master∆letters 3
+⍞ ← poss ← master∆filter poss master∆generation master∆letters 4
+⍞ ← master∆nl
+⍞ ← poss ← master∆filter poss master∆generation master∆letters 5
+∇
+```
 
 ### <a name='master∆slurp'>`master∆slurp` - Chargement du fichier</a>
 
@@ -678,41 +714,6 @@ sel1  ← npr ≤ dim ⍴ notes
 sel2  ← npr ≥ (dim ⍴ notes) - empty
 sel   ← ∧ / sel1, sel2
 r ← sel ⌿ poss
-∇
-```
-
-### <a name='master∆solution'>`master∆solution` - Le programme de résolution</a>
-
-Après la phase d'initialisation, qui consiste à lire le fichier et en extraire les
-variables <tt>prop</tt> et <tt>notes</tt>, la résolution se fait ainsi.
-
-<ol>
-<li>Établir la liste des codes possibles à 1 lettre. C'est le résultat de <tt><a href='#master∆letters' class='call'>master∆letters</a></tt>,
-converti en un tableau à <var>n</var> lignes et 1 colonne.</li>
-<li>Filtrer cette liste de codes possibles.</li>
-<li>Établir la liste des codes possibles à 2 lettres.</li>
-<li>Filtrer cette nouvelle liste de codes possibles.</li>
-</ol>
-
-Et ainsi de suite jusqu'à la liste filtrée de codes à 5 lettres.
-
-Notons  qu'il faut  passer une  ligne  avant la  liste des  codes à  5
-lettres,  car cette  liste contient  en général  un seul  code et  son
-affichage se  fait sans passage  à la  ligne. Je pense  qu'il faudrait
-aussi prévoir le cas pour les listes  de codes possibles à 4, ou 3, ou
-2 lettres, mais je fais l'impasse sur ce problème.
-
-
-```
-∇ master∆solution path; letters; n; poss
-master∆extract path
-n ← ⍴ letters ← master∆letters 1
-⍞ ← poss ← master∆filter (n, 1) ⍴ letters
-⍞ ← poss ← master∆filter poss master∆generation master∆letters 2
-⍞ ← poss ← master∆filter poss master∆generation master∆letters 3
-⍞ ← poss ← master∆filter poss master∆generation master∆letters 4
-⍞ ← master∆nl
-⍞ ← poss ← master∆filter poss master∆generation master∆letters 5
 ∇
 ```
 
