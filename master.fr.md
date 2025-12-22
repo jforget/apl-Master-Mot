@@ -154,6 +154,20 @@ resul
 )off
 ```
 
+Si  l'affichage de  la variable  <tt>resul</tt> ne  donne rien,  c'est
+qu'il n'y a pas de solution. Vous pouvez le vérifier en demandant
+
+
+```
+⍴ result
+```
+
+qui  doit  répondre  <tt>0  5</tt>.   Voir  les  exemples  fournis  par
+<tt>test0.data</tt> et <tt>test00.data</tt>
+
+Vous avez également un exemple de problème à deux solutions, dans <tt>test2.data</tt>.
+
+
 ## Les programmes
 
 Pour écrire les programmes, j'ai  utilisé la variante d'APL des années

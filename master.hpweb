@@ -190,6 +190,24 @@ master.apl: apl
     resul ← @master∆solution@ 'test.data'
     resul
     )off
+- fr: |
+    Si  l'affichage de  la variable  <tt>resul</tt> ne  donne rien,  c'est
+    qu'il n'y a pas de solution. Vous pouvez le vérifier en demandant
+- en: |
+    If displaying variable <tt>resul</tt>  gives nothing, that means there
+    are no solution. You can confirm that by asking
+- code: |
+    ⍴ result
+- fr: |
+   qui  doit  répondre  <tt>0  5</tt>.   Voir  les  exemples  fournis  par
+   <tt>test0.data</tt> et <tt>test00.data</tt>0
+
+   Vous avez également un exemple de problème à deux solutions, dans <tt>test2.data</tt>.
+- en: |
+   which   will    answer   <tt>0   5</tt>.   See    the   examples   with
+   <tt>test0.data</tt> and <tt>test00.data</tt>0
+
+   File <tt>test2.data</tt> gives you an example which generates two solutions.
 - section: 0
   fr: Les programmes
   en: The programs

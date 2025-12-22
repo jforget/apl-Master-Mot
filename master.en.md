@@ -142,6 +142,20 @@ resul
 )off
 ```
 
+If displaying variable <tt>resul</tt>  gives nothing, that means there
+are no solution. You can confirm that by asking
+
+
+```
+⍴ result
+```
+
+which   will    answer   <tt>0   5</tt>.   See    the   examples   with
+<tt>test0.data</tt> and <tt>test00.data</tt>
+
+File <tt>test2.data</tt> gives you an example which generates two solutions.
+
+
 ## The programs
 
 To write these programs, I have used the variant of APL from the 1970's, which I
