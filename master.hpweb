@@ -170,7 +170,7 @@ master.apl: apl
 - fr: |
     Vous pouvez  utiliser des  lettres majuscules dans  un fichier  et des
     lettres minuscules dans un autre fichier.  Mais ne les mélangez pas au
-    sein  d'un  même  fichier.  Quant  aux  écrans,  trémas  et  cédilles,
+    sein  d'un  même  fichier.  Quant aux  accents,  trémas  et  cédilles,
     oubliez-les (cf <tt>foret</tt> dans l'exemple ci-dessus).
 
     Une  fois le  fichier sauvegardé,  ouvrez  APL et  lancez la  fonction
@@ -187,7 +187,8 @@ master.apl: apl
     argument.
 - code: |
     apl -f master.apl
-    @master∆solution@ 'test.data'
+    resul ← @master∆solution@ 'test.data'
+    resul
     )off
 - section: 0
   fr: Les programmes
@@ -226,7 +227,7 @@ master.apl: apl
   fr: Le programme de résolution
   en: The solving program
 - fr: |
-    Le programme  commence par un  phase d'initialisation, qui  consiste à
+    Le programme  commence par une phase d'initialisation, qui  consiste à
     lire  le  fichier  et  en  extraire  les  variables  <tt>prop</tt>  et
     <tt>notes</tt>. Ensuite, la résolution se fait ainsi.
 
@@ -268,7 +269,7 @@ master.apl: apl
     it  will  not be  necessary  with  usual  Master  Mot problems.  So  I
     disregard this problem.
 - code: |
-    ∇ master∆solution path; letters; n; poss
+    ∇ r ← master∆solution path; letters; n; poss; prop; notes
     @master∆extract@ path
     n ← ⍴ letters ← @master∆letters@ 1
     ⍞ ← poss ← @master∆filter@ (n, 1) ⍴ letters
@@ -276,7 +277,7 @@ master.apl: apl
     ⍞ ← poss ← @master∆filter@ poss @master∆generation@ @master∆letters@ 3
     ⍞ ← poss ← @master∆filter@ poss @master∆generation@ @master∆letters@ 4
     ⍞ ← @master∆nl@
-    ⍞ ← poss ← @master∆filter@ poss @master∆generation@ @master∆letters@ 5
+    r ← @master∆filter@ poss @master∆generation@ @master∆letters@ 5
     ∇
 - section: master∆slurp
   master.apl: 2
@@ -449,16 +450,15 @@ master.apl: apl
   en: Extracting the problem data
 - fr: |
     Le programme reçoit le chemin d'accès  du fichier et alimente les deux
-    variables  globales <tt>prop</tt>  et  <tt>notes</tt>.  Il ne  renvoie
-    aucune valeur.
+    variables  <tt>prop</tt>  et  <tt>notes</tt>.  Il  ne  renvoie  aucune
+    valeur.
 
     Récupération du contenu du fichier
 - en: |
     The program  receives the pathname of  the problem file and  feeds two
-    global variables <tt>prop</tt> and  <tt>notes</tt>. There is no return
-    value.
+    variables <tt>prop</tt> and <tt>notes</tt>. There is no return value.
 
-    Loding the content of the file.
+    Loading the content of the file.
 - code: |
     ∇ master∆extract path; v; n; t; sel
     v ← @master∆slurp@ path

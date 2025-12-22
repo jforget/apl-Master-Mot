@@ -139,7 +139,7 @@ alors 0
 
 Vous pouvez  utiliser des  lettres majuscules dans  un fichier  et des
 lettres minuscules dans un autre fichier.  Mais ne les mélangez pas au
-sein  d'un  même  fichier.  Quant  aux  écrans,  trémas  et  cédilles,
+sein  d'un  même  fichier.  Quant aux  accents,  trémas  et  cédilles,
 oubliez-les (cf <tt>foret</tt> dans l'exemple ci-dessus).
 
 Une  fois le  fichier sauvegardé,  ouvrez  APL et  lancez la  fonction
@@ -149,7 +149,8 @@ quotes).
 
 ```
 apl -f master.apl
-master∆solution 'test.data'
+resul ← master∆solution 'test.data'
+resul
 )off
 ```
 
@@ -173,7 +174,7 @@ même si je n'ai pas l'intention de publier mon programme de Master Mot sur
 
 ### <a name='master∆solution'>`master∆solution` - Le programme de résolution</a>
 
-Le programme  commence par un  phase d'initialisation, qui  consiste à
+Le programme  commence par une phase d'initialisation, qui  consiste à
 lire  le  fichier  et  en  extraire  les  variables  <tt>prop</tt>  et
 <tt>notes</tt>. Ensuite, la résolution se fait ainsi.
 
@@ -195,7 +196,7 @@ aussi prévoir le cas pour les listes  de codes possibles à 4, ou 3, ou
 
 
 ```
-∇ master∆solution path; letters; n; poss
+∇ r ← master∆solution path; letters; n; poss; prop; notes
 master∆extract path
 n ← ⍴ letters ← master∆letters 1
 ⍞ ← poss ← master∆filter (n, 1) ⍴ letters
@@ -203,7 +204,7 @@ n ← ⍴ letters ← master∆letters 1
 ⍞ ← poss ← master∆filter poss master∆generation master∆letters 3
 ⍞ ← poss ← master∆filter poss master∆generation master∆letters 4
 ⍞ ← master∆nl
-⍞ ← poss ← master∆filter poss master∆generation master∆letters 5
+r ← master∆filter poss master∆generation master∆letters 5
 ∇
 ```
 
@@ -348,8 +349,8 @@ master∆nl ← "\n"
 #### <a name='master∆extract'>`master∆extract` - Extraction des données du problème</a>
 
 Le programme reçoit le chemin d'accès  du fichier et alimente les deux
-variables  globales <tt>prop</tt>  et  <tt>notes</tt>.  Il ne  renvoie
-aucune valeur.
+variables  <tt>prop</tt>  et  <tt>notes</tt>.  Il  ne  renvoie  aucune
+valeur.
 
 Récupération du contenu du fichier
 

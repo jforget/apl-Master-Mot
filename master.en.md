@@ -137,7 +137,8 @@ argument.
 
 ```
 apl -f master.apl
-master∆solution 'test.data'
+resul ← master∆solution 'test.data'
+resul
 )off
 ```
 
@@ -183,7 +184,7 @@ disregard this problem.
 
 
 ```
-∇ master∆solution path; letters; n; poss
+∇ r ← master∆solution path; letters; n; poss; prop; notes
 master∆extract path
 n ← ⍴ letters ← master∆letters 1
 ⍞ ← poss ← master∆filter (n, 1) ⍴ letters
@@ -191,7 +192,7 @@ n ← ⍴ letters ← master∆letters 1
 ⍞ ← poss ← master∆filter poss master∆generation master∆letters 3
 ⍞ ← poss ← master∆filter poss master∆generation master∆letters 4
 ⍞ ← master∆nl
-⍞ ← poss ← master∆filter poss master∆generation master∆letters 5
+r ← master∆filter poss master∆generation master∆letters 5
 ∇
 ```
 
@@ -336,10 +337,9 @@ master∆nl ← "\n"
 #### <a name='master∆extract'>`master∆extract` - Extracting the problem data</a>
 
 The program  receives the pathname of  the problem file and  feeds two
-global variables <tt>prop</tt> and  <tt>notes</tt>. There is no return
-value.
+variables <tt>prop</tt> and <tt>notes</tt>. There is no return value.
 
-Loding the content of the file.
+Loading the content of the file.
 
 
 ```

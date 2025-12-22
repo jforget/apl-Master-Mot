@@ -72,7 +72,7 @@ sel2  ← npr ≥ (dim ⍴ notes) - empty
 sel   ← ∧ / sel1, sel2
 r ← sel ⌿ poss
 ∇
-∇ master∆solution path; letters; n; poss
+∇ r ← master∆solution path; letters; n; poss; prop; notes
 master∆extract path
 n ← ⍴ letters ← master∆letters 1
 ⍞ ← poss ← master∆filter (n, 1) ⍴ letters
@@ -80,5 +80,5 @@ n ← ⍴ letters ← master∆letters 1
 ⍞ ← poss ← master∆filter poss master∆generation master∆letters 3
 ⍞ ← poss ← master∆filter poss master∆generation master∆letters 4
 ⍞ ← master∆nl
-⍞ ← poss ← master∆filter poss master∆generation master∆letters 5
+r ← master∆filter poss master∆generation master∆letters 5
 ∇
