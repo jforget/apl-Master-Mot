@@ -429,10 +429,44 @@ r ← (col ≠ 1 ⌽ col) / col
 ∇
 ```
 
+Example:
+
+
+<pre>
+col                         a c c f f p p p p p
+1 ⌽ col                     c c f f p p p p p a
+(col ≠ 1 ⌽ col)             1 0 1 0 1 0 0 0 0 1
+r ← (col ≠ 1 ⌽ col) / col   a   c   f         p
+</pre>
+
+
+A  variant  uses the  comparison  between  the  checked char  and  the
+preceding char.
+
+
+<pre>
+col                         a c c f f p p p p p
+¯1 ⌽ col                    p a c c f f p p p p
+(col ≠ ¯1 ⌽ col)            1 1 0 1 0 1 0 0 0 0
+r ← (col ≠ ¯1 ⌽ col) / col  a c   f   p
+</pre>
+
+
 Remark. If column <i>n</i> contains <var>x</var> instances of the same
-character,  the function  will return  an  empty vector  instead of  a
-1-char vector.  This will never happen  in a real Master  Mot problem.
-Therefore, we disregard this bug.
+character,  both variants  will return  an empty  vector instead  of a
+1-char vector. This may happen with a problem such as:
+
+
+<pre>
+pente 2
+peine 2
+porte 2
+parti 2
+prude 2
+panda 2
+puits 2
+plans 2
+</pre>
 
 
 #### Generating the possible codes with length <var>n</var>

@@ -441,10 +441,44 @@ r ← (col ≠ 1 ⌽ col) / col
 ∇
 ```
 
+Exemple :
+
+
+<pre>
+col                         a c c f f p p p p p
+1 ⌽ col                     c c f f p p p p p a
+(col ≠ 1 ⌽ col)             1 0 1 0 1 0 0 0 0 1
+r ← (col ≠ 1 ⌽ col) / col   a   c   f         p
+</pre>
+
+
+Une variante consiste à comparer le  caractère testé avec celui qui le
+précède.
+
+
+<pre>
+col                         a c c f f p p p p p
+¯1 ⌽ col                    p a c c f f p p p p
+(col ≠ ¯1 ⌽ col)            1 1 0 1 0 1 0 0 0 0
+r ← (col ≠ ¯1 ⌽ col) / col  a c   f   p
+</pre>
+
+
 Remarque : si  la colonne <i>n</i> contient <var>x</var>  fois le même
-caractère, la  fonction renvoie un  vecteur vide au lieu  d'un vecteur
-avec un seul  caractère. Cela n'arrivera jamais dans  un vrai problème
-de Master Mot. Nous pouvons faire l'impasse sur ce bug.
+caractère, les deux  variantes renvoient un vecteur vide  au lieu d'un
+vecteur avec un seul caractère. Cela peut arriver avec ce problème :
+
+
+<pre>
+pente 2
+peine 2
+porte 2
+parti 2
+prude 2
+panda 2
+puits 2
+plans 2
+</pre>
 
 
 #### Génération des codes possibles de <var>n</var> caractères de long
