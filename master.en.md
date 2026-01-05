@@ -780,3 +780,29 @@ r ← sel ⌿ poss
 ∇
 ```
 
+## Test files
+
+I  do not  publish the  problems from  Télé 7  Jeux which  I have
+gathered for  several years.  I am  allowed to  copy them  for my
+private use,  but I am not  allowed to use them  for a collective
+use. So I  have created a similar  problem in <tt>test.data</tt>,
+which  is  not among  the  published  problems.  Or it  has  been
+published before I  started collecting them, but this  would be a
+coincidence.
+
+Similar to <tt>test.data</tt>, there is <tt>test2.data</tt>, with
+two fewer lines. This problem has  two solutions. As the very few
+Télé  7  Jeux  problems  with  two  solutions,  one  solution  of
+<tt>test2.data</tt> is a real French word  and the other one is a
+bunch of letters without any meaning.
+
+File <tt>test1.data</tt>  accepts a single solution.  Its purpose
+is to check  the solving program when a column  contains a single
+letter.
+
+Test files  <tt>test0.data</tt> and <tt>test00.data</tt>  have no
+solutions.  For  <tt>test0.data</tt>,  the   failure  to  find  a
+solution happens at  the last iteration of  the (flattened) loop,
+while for <tt>test00.data</tt>, it happens earlier.
+
+

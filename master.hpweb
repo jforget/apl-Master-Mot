@@ -997,3 +997,51 @@ master.apl: apl
     sel   ← ∧ / sel1, sel2
     r ← sel ⌿ poss
     ∇
+- section: 0
+  fr: Les fichiers de tests
+  en: Test files
+- fr: |
+     Je ne diffuse pas les problèmes  extraits de Télé 7 Jeux que j'ai
+     collectés depuis plusieurs années. J'ai  le droit de les recopier
+     pour une  utilisation personnelle, mais pas  pour une utilisation
+     collective.   J'ai   imaginé    un   problème   similaire,   dans
+     <tt>test.data</tt>, mais qui n'est tiré d'aucun problème existant
+     (ou alors, il s'agirait d'une coïncidence).
+
+     Similaire à  <tt>test.data</tt>, il y a  <tt>test2.data</tt>, qui
+     admet deux solutions  et non pas une seule. Comme  dans les rares
+     problèmes  de  Télé 7  Jeux  admettant  plusieurs solutions,  une
+     solution est  un mot  correct, l'autre est  un groupe  de lettres
+     sans signification.
+
+     Le  fichier  <tt>test1.data</tt>  admet une  seule  solution.  Sa
+     particularité est  que l'une des colonnes  (la première) contient
+     une seule lettre.
+
+     Les  fichiers <tt>test0.data</tt>  et <tt>test00.data</tt>  n'ont
+     pas  de solution.  Dans le  cas de  <tt>test0.data</tt>, cela  se
+     produit lors de la dernière itération,  tandis que dans le cas de
+     <tt>test00.data</tt> cela se produit avant la dernière itération.
+- en: |
+     I  do not  publish the  problems from  Télé 7  Jeux which  I have
+     gathered for  several years.  I am  allowed to  copy them  for my
+     private use,  but I am not  allowed to use them  for a collective
+     use. So I  have created a similar  problem in <tt>test.data</tt>,
+     which  is  not among  the  published  problems.  Or it  has  been
+     published before I  started collecting them, but this  would be a
+     coincidence.
+
+     Similar to <tt>test.data</tt>, there is <tt>test2.data</tt>, with
+     two fewer lines. This problem has  two solutions. As the very few
+     Télé  7  Jeux  problems  with  two  solutions,  one  solution  of
+     <tt>test2.data</tt> is a real French word  and the other one is a
+     bunch of letters without any meaning.
+
+     File <tt>test1.data</tt>  accepts a single solution.  Its purpose
+     is to check  the solving program when a column  contains a single
+     letter.
+
+     Test files  <tt>test0.data</tt> and <tt>test00.data</tt>  have no
+     solutions.  For  <tt>test0.data</tt>,  the   failure  to  find  a
+     solution happens at  the last iteration of  the (flattened) loop,
+     while for <tt>test00.data</tt>, it happens earlier.

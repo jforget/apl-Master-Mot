@@ -789,3 +789,28 @@ r ← sel ⌿ poss
 ∇
 ```
 
+## Les fichiers de tests
+
+Je ne diffuse pas les problèmes  extraits de Télé 7 Jeux que j'ai
+collectés depuis plusieurs années. J'ai  le droit de les recopier
+pour une  utilisation personnelle, mais pas  pour une utilisation
+collective.   J'ai   imaginé    un   problème   similaire,   dans
+<tt>test.data</tt>, mais qui n'est tiré d'aucun problème existant
+(ou alors, il s'agirait d'une coïncidence).
+
+Similaire à  <tt>test.data</tt>, il y a  <tt>test2.data</tt>, qui
+admet deux solutions  et non pas une seule. Comme  dans les rares
+problèmes  de  Télé 7  Jeux  admettant  plusieurs solutions,  une
+solution est  un mot  correct, l'autre est  un groupe  de lettres
+sans signification.
+
+Le  fichier  <tt>test1.data</tt>  admet une  seule  solution.  Sa
+particularité est  que l'une des colonnes  (la première) contient
+une seule lettre.
+
+Les  fichiers <tt>test0.data</tt>  et <tt>test00.data</tt>  n'ont
+pas  de solution.  Dans le  cas de  <tt>test0.data</tt>, cela  se
+produit lors de la dernière itération,  tandis que dans le cas de
+<tt>test00.data</tt> cela se produit avant la dernière itération.
+
+
