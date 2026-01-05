@@ -25,7 +25,7 @@ calé pour traduire en français un texte de teneur juridique).
 ∇ master∆license
 'APL program to solve a Master Mot quizz'
 ''
-'Copyright (C) 2025 Jean Forget  (JFORGET at cpan dot org)'
+'Copyright (C) 2025, 2026 Jean Forget  (JFORGET at cpan dot org)'
 ''
 'Build date:'
 ''
