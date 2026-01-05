@@ -436,11 +436,6 @@ pour savoir s'il  est suivi par un caractère différent.  Si oui, il le
 conserve.
 
 
-```
-r ← (col ≠ 1 ⌽ col) / col
-∇
-```
-
 Exemple :
 
 
@@ -478,6 +473,34 @@ prude 2
 panda 2
 puits 2
 plans 2
+</pre>
+
+
+On peut constater que dans la  variante origine, le dernier élément du
+vecteur de sélection est toujours 1, sauf dans le cas problématique de
+la colonne uniforme. De même, dans la variante alternative, le premier
+élément du vecteur de sélection est toujours 1, sauf dans le cas de la
+colonne uniforme. La solution consiste à écraser cet élément par un 1,
+ce qui est neutre  dans le cas général, mais bénéfique  dans le cas de
+la colonne uniforme.
+
+
+```
+r ← (1, 1 ↓ col ≠ ¯1 ⌽ col) / col
+∇
+```
+
+<pre>
+col                                a c c f f p p p p p
+¯1 ⌽ col                           p a c c f f p p p p
+(col ≠ ¯1 ⌽ col)                   1 1 0 1 0 1 0 0 0 0
+(i, 1 ↓ col ≠ ¯1 ⌽ col)            1 1 0 1 0 1 0 0 0 0
+r ← (i, 1 ↓ col ≠ ¯1 ⌽ col) / col  a c   f   p
+col                                p p p p p p p p p p
+¯1 ⌽ col                           p p p p p p p p p p
+(col ≠ ¯1 ⌽ col)                   0 0 0 0 0 0 0 0 0 0
+(i, 1 ↓ col ≠ ¯1 ⌽ col)            1 0 0 0 0 0 0 0 0 0
+r ← (i, 1 ↓ col ≠ ¯1 ⌽ col) / col  p
 </pre>
 
 

@@ -559,9 +559,6 @@ master.apl: apl
     Actually, the logic is inverted.  The program checks each character to
     determine if  it is followed  by a different  char. In this  case, the
     char is kept.
-- code: |
-    r ← (col ≠ 1 ⌽ col) / col
-    ∇
 - fr: |
     Exemple :
 - en: |
@@ -604,6 +601,38 @@ master.apl: apl
     panda 2
     puits 2
     plans 2
+    </pre>
+- fr: |
+    On peut constater que dans la  variante origine, le dernier élément du
+    vecteur de sélection est toujours 1, sauf dans le cas problématique de
+    la colonne uniforme. De même, dans la variante alternative, le premier
+    élément du vecteur de sélection est toujours 1, sauf dans le cas de la
+    colonne uniforme. La solution consiste à écraser cet élément par un 1,
+    ce qui est neutre  dans le cas général, mais bénéfique  dans le cas de
+    la colonne uniforme.
+- en: |
+    You may  note that  in the  initial variant, the  last element  in the
+    selection vector is  always 1, except when applied  to the single-char
+    column. Likewise, in  the alternate variant, the first  element in the
+    selection vector  is always  1, except when  applied to  a single-char
+    column. The  solution consists in  overwriting this element with  a 1,
+    which is  a neutral operation in  most cases, and a  beneficial one in
+    the case of the single-char column.
+- code: |
+    r ← (1, 1 ↓ col ≠ ¯1 ⌽ col) / col
+    ∇
+- 'fr,en': |
+    <pre>
+    col                                a c c f f p p p p p
+    ¯1 ⌽ col                           p a c c f f p p p p
+    (col ≠ ¯1 ⌽ col)                   1 1 0 1 0 1 0 0 0 0
+    (i, 1 ↓ col ≠ ¯1 ⌽ col)            1 1 0 1 0 1 0 0 0 0
+    r ← (i, 1 ↓ col ≠ ¯1 ⌽ col) / col  a c   f   p
+    col                                p p p p p p p p p p
+    ¯1 ⌽ col                           p p p p p p p p p p
+    (col ≠ ¯1 ⌽ col)                   0 0 0 0 0 0 0 0 0 0
+    (i, 1 ↓ col ≠ ¯1 ⌽ col)            1 0 0 0 0 0 0 0 0 0
+    r ← (i, 1 ↓ col ≠ ¯1 ⌽ col) / col  p
     </pre>
 - section: 0
   fr: Génération des codes possibles de <var>n</var> caractères de long

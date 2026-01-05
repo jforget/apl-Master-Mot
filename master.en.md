@@ -424,11 +424,6 @@ determine if  it is followed  by a different  char. In this  case, the
 char is kept.
 
 
-```
-r ← (col ≠ 1 ⌽ col) / col
-∇
-```
-
 Example:
 
 
@@ -466,6 +461,34 @@ prude 2
 panda 2
 puits 2
 plans 2
+</pre>
+
+
+You may  note that  in the  initial variant, the  last element  in the
+selection vector is  always 1, except when applied  to the single-char
+column. Likewise, in  the alternate variant, the first  element in the
+selection vector  is always  1, except when  applied to  a single-char
+column. The  solution consists in  overwriting this element with  a 1,
+which is  a neutral operation in  most cases, and a  beneficial one in
+the case of the single-char column.
+
+
+```
+r ← (1, 1 ↓ col ≠ ¯1 ⌽ col) / col
+∇
+```
+
+<pre>
+col                                a c c f f p p p p p
+¯1 ⌽ col                           p a c c f f p p p p
+(col ≠ ¯1 ⌽ col)                   1 1 0 1 0 1 0 0 0 0
+(i, 1 ↓ col ≠ ¯1 ⌽ col)            1 1 0 1 0 1 0 0 0 0
+r ← (i, 1 ↓ col ≠ ¯1 ⌽ col) / col  a c   f   p
+col                                p p p p p p p p p p
+¯1 ⌽ col                           p p p p p p p p p p
+(col ≠ ¯1 ⌽ col)                   0 0 0 0 0 0 0 0 0 0
+(i, 1 ↓ col ≠ ¯1 ⌽ col)            1 0 0 0 0 0 0 0 0 0
+r ← (i, 1 ↓ col ≠ ¯1 ⌽ col) / col  p
 </pre>
 
 

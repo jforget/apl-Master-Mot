@@ -44,7 +44,7 @@ notes ← ⍎,t[;7 8]
 ∇ r ← master∆letters n; col
 col ← prop[;n]
 col ← col[⍋col]
-r ← (col ≠ 1 ⌽ col) / col
+r ← (1, 1 ↓ col ≠ ¯1 ⌽ col) / col
 ∇
 ∇ r ← poss master∆generation letters; np; nl; ip; il
 np ← ¯1 ↓ ⍴ poss
